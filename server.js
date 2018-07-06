@@ -10,7 +10,7 @@ const db = require('./config/keys').mongoURI;
 mongoose
   .connect(db)
   .then(() => console.log('mongoDB connected'))
-  .catch(err => console.log(err));
+  .catch(error => console.log(error));
 
 app.get('/', (req, res) => res.send('This is Pickflix!'));
 
