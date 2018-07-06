@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+const {listMovies} = require('./grabMovies.js')
 const app = express();
 
 // db config
@@ -12,7 +12,7 @@ mongoose
   .then(() => console.log('mongoDB connected'))
   .catch(error => console.log(error));
 
-app.get('/', (req, res) => res.send('This is Pickflix!'));
+app.get('/', (req, res) => res.send(`${listMovies}`));
 
 const port = process.env.PORT || 3000;
 

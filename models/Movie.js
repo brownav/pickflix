@@ -3,17 +3,17 @@ const Schema = mongoose.Schema;
 
 // create schema
 const movieSchema = new Schema({
-  type: String,
+  contentType: String,
   title: String,
-  episode_count: Number,
+  episodeCount: Number,
   rated: String,
   released: Date,
   genres: Array,
   plot: String,
   awards: String,
   image: String,
-  ratings: Array,
-  avg_rating: Number,
+  scores: Array,
+  avgScores: Number,
   director: String,
   actors: Array
 })
