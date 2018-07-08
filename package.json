@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/brownav/pickflix#readme",
   "dependencies": {
+    "async": "^2.6.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
