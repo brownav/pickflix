@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const movieList = require('./grabMovies.js');
 const app = express();
 
 // db config

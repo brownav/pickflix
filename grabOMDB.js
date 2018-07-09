@@ -2,6 +2,7 @@ const movies = require('./grabMovies.js');
 const axios = require('axios');
 const _ = require('lodash');
 const key = require('./config/keys').OMDB_KEY;
+const async = require('async');
 
 let dbMovies = [];
 const timer = setTimeout(function(){grabOMDB(movies)}, 7000);
@@ -35,33 +36,36 @@ const addAttributes = (movieAttributes) => {
   let result = movies.find(x => x.title === movieAttributes.Title)
   result = _.merge(result, movieAttributes);
   result = _.omit(result, ['title']); // removes redundant title field
-  result = _.merge(result, {'avgScore': null}); // adds field for average rating
+  result = _.merge(result, {'avgRating': null}); // adds field for average rating
   addAverage(result);
 }
 
+
 const addAverage = (movie) => {
+  let total = 0;
   // standardize all ratings
   movie.Ratings.forEach(rating => {
     if (rating.Source === 'Internet Movie Database') {
       rating.Value = rating.Value.substr(0, 3);
       rating.Value = parseFloat(rating.Value);
-    } else if (rating.Source === 'Rotten Tomatoes' || rating.Source === 'Metacritic') {
+      total += rating.Value;
+    }
+
+    if (rating.Source === 'Rotten Tomatoes' || rating.Source === 'Metacritic') {
       rating.Value = rating.Value.substr(0, 2);
-      rating.Value = parseFloat(rating.Value) / 10;
+      if (rating.Value === '10') {
+        total += 10
+      } else {
+        rating.Value = parseFloat(rating.Value) / 10;
+        total += rating.Value;
+      }
     }
   })
-  // if only one score assign as average, else average all ratings
-  if (movie.Ratings.length === 1) {
-    movie.avgScore = movie.Ratings[0].Value;
-  } else if (movie.Ratings.length > 1) {
-    let total = 0;
-    movie.Ratings.forEach(rating => {
-      total += rating.Value;
-    })
-    movie.avgScore = Number((total / movie.Ratings.length).toFixed(1));
-  }
+  movie.avgRating = Number((total / movie.Ratings.length).toFixed(1));
+  console.log(" ");
+  console.log(movie.Title + ' - ' +  movie.avgRating + ' -- ' + dbMovies.length);
   dbMovies.push(movie);
-  console.log(dbMovies.length);
 }
+
 
 timer;
