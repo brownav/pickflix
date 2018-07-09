@@ -13,7 +13,7 @@ const movieSchema = new Schema({
   awards: String,
   image: String,
   scores: Array,
-  avgScores: Number,
+  avgScore: Number,
   director: String,
   actors: Array
 })

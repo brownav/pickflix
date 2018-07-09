@@ -7,7 +7,7 @@ let timer = setInterval(function(){grabMovies()}, 5000);
 
 const grabMovies = () => {
   let skip = 0;
-  let URL = "https://api.reelgood.com/v2/browse/source/netflix?take=3&skip=" + skip + "&&year_start=1900&year_end=2018&availability=onSources&hide_seen=false&hide_tracked=false&hide_watchlisted=false&content_kind=both&sources=netflix&sort=0&free=false&override_user_sources=true&overriding_sources=netflix";
+  let URL = "https://api.reelgood.com/v2/browse/source/netflix?take=10&skip=" + skip + "&&year_start=1900&year_end=2018&availability=onSources&hide_seen=false&hide_tracked=false&hide_watchlisted=false&content_kind=both&sources=netflix&sort=0&free=false&override_user_sources=true&overriding_sources=netflix";
   let i = 0;
   while (i < 1) {
     axios.get(URL)
