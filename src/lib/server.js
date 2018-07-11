@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const genres = require('../routes/api/genres');
+const movies = require('../routes/api/movies');
+
 const app = express();
 
 // db config
-const db = require('./config/keys').mongoURI;
+const db = require('../../config/keys').mongoURI;
 
 // connect to mongoDB
 mongoose
@@ -12,6 +15,10 @@ mongoose
   .catch(error => console.log(error));
 
 app.get('/', (req, res) => res.send('sdlfkje'));
+// use routes
+
+app.use('/api/genres', genres);
+app.use('/api/movies', movies);
 
 const port = process.env.PORT || 3000;
 

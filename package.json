@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon src/lib/server.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "jsonfile": "^4.0.0",
     "lodash": "^4.17.10",
     "mongodb": "^3.1.1",
     "mongoose": "^5.2.1"
