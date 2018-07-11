@@ -4,31 +4,46 @@ const _ = require('lodash');
 const Movie = require('../src/models/Movie');
 const key = require('../config/keys').OMDB_KEY;
 
-console.log('in grab movie info');
 
 const addOMDBInfo = async (titleList) => {
   let x = titleList.then((movies) => {
-    let mergedInfos = [];
-      movies.forEach((movie) => {
-        let title = movie.title;
-        const omdbInfo = getOMDBInfo(title);
-        const mergedInfo = mergeOMDBInfo(movie, omdbInfo);
-        mergedInfo.then((info) => {
-          console.log(info);
-          // let newMovie = _.pick(info, ['title', 'avgRating'])
-          // newMovie = new Movie(newMovie)
-          // newMovie.save().then((doc) => {
-          //   console.log("++Saved", doc.title);
-          // }, (error) => {
-          //   console.log("--Unable", doc.title);
-          // });
-        });
-        mergedInfos.push(mergedInfo);
+    movies.forEach((movie) => {
+      let title = movie.title;
+      const omdbInfo = getOMDBInfo(title);
+      const mergedInfo = mergeOMDBInfo(movie, omdbInfo);
+      mergedInfo.then((info) => {
+        let newMovie = _.pick(info,
+          ['title', 'avgRating', 'episode_source_count', 'Rated',
+          'Released', 'Runtime', 'Genre', 'Director', 'Actors', 'Plot',
+          'Awards', 'Poster', 'Ratings', 'Type'])
+
+           let temp = new Movie({
+             title: newMovie.title,
+             contentType: newMovie.content_type,
+             episodeCount: newMovie.episode_source_count,
+             rated: newMovie.Rated,
+             released: newMovie.Released,
+             genres: newMovie.Genre,
+             plot: newMovie.Plot,
+             awards: newMovie.Awards,
+             image: newMovie.Poster,
+             ratings: newMovie.Ratings,
+             avgRating: newMovie.avgRating,
+             director: newMovie.Director,
+             actors: newMovie.Actors
+           })
+          //
+          temp.save().then((doc) => {
+            console.log("++Saved", doc.title);
+          },(error) => {
+            console.log("--Unable", error);
+          });
+
+      });
     });
-    return mergedInfos;
   });
-  return x;
-};
+  return x
+}
 
 const makeAverageRating = (movieInfo) => {
   if (movieInfo.Ratings) {
@@ -81,4 +96,6 @@ const getOMDBInfo = (title) => {
 
 const moviePromises = grabTitles();
 const titleList = getMovieList(moviePromises);
-const movieList = addOMDBInfo(titleList);
+const movie = addOMDBInfo(titleList);
+
+module.export = movie;

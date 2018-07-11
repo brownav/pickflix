@@ -1,7 +1,6 @@
 const axios = require('axios');
 const _ = require('lodash');
 
-
 const grabTitles = () => {
   let skip = 0,
       i = 0,
@@ -16,7 +15,6 @@ const grabTitles = () => {
 
 
 async function processMovies (promises) {
-  console.log('in processmovies...');
   let results = await axios.all(promises).then((results) => {
     let totalResults = [];
     results.forEach((response) => {
@@ -29,13 +27,13 @@ async function processMovies (promises) {
     })
     return totalResults;
   })
-  return results;
+  return results
 }
 
 async function getMovieList (promises) {
   let movieList = await processMovies(promises);
-  // console.log(movieList.length);
   return movieList
 }
 
+processMovies();
 module.exports = {grabTitles, getMovieList};
