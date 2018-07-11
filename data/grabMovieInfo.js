@@ -4,11 +4,13 @@ const _ = require('lodash');
 const Movie = require('../src/models/Movie');
 const key = require('../config/keys').OMDB_KEY;
 
-
 const addOMDBInfo = async (titleList) => {
   let x = titleList.then((movies) => {
     movies.forEach((movie) => {
       let title = movie.title;
+      if (title.indexOf('Marvel\'s') > -1) {
+        title = title.slice(9);
+      }
       const omdbInfo = getOMDBInfo(title);
       const mergedInfo = mergeOMDBInfo(movie, omdbInfo);
       mergedInfo.then((info) => {
@@ -17,28 +19,27 @@ const addOMDBInfo = async (titleList) => {
           'Released', 'Runtime', 'Genre', 'Director', 'Actors', 'Plot',
           'Awards', 'Poster', 'Ratings', 'Type'])
 
-           let temp = new Movie({
-             title: newMovie.title,
-             contentType: newMovie.content_type,
-             episodeCount: newMovie.episode_source_count,
-             rated: newMovie.Rated,
-             released: newMovie.Released,
-             genres: newMovie.Genre,
-             plot: newMovie.Plot,
-             awards: newMovie.Awards,
-             image: newMovie.Poster,
-             ratings: newMovie.Ratings,
-             avgRating: newMovie.avgRating,
-             director: newMovie.Director,
-             actors: newMovie.Actors
-           })
-          //
-          temp.save().then((doc) => {
-            console.log("++Saved", doc.title);
-          },(error) => {
-            console.log("--Unable", error);
-          });
-
+        let temp = new Movie({
+           title: newMovie.title,
+           contentType: newMovie.content_type,
+           episodeCount: newMovie.episode_source_count,
+           rated: newMovie.Rated,
+           released: newMovie.Released,
+           genres: newMovie.Genre,
+           plot: newMovie.Plot,
+           awards: newMovie.Awards,
+           image: newMovie.Poster,
+           ratings: newMovie.Ratings,
+           avgRating: newMovie.avgRating,
+           director: newMovie.Director,
+           actors: newMovie.Actors
+         });
+         // console.log(temp);
+        temp.save().then((doc) => {
+          console.log("++Saved", doc.title);
+        },(error) => {
+          console.log("--Unable", error);
+        });
       });
     });
   });
@@ -74,7 +75,7 @@ const mergeOMDBInfo = (movie, omdbInfo) => {
     omdbInfo = omdbInfo.data;
     let mergingInfo = _.merge(movie, omdbInfo);
     mergingInfo = _.omit(mergingInfo, ['Title']);
-    mergingInfo = _.merge(mergingInfo, {'avgRating': null});
+    mergingInfo = _.merge(mergingInfo, {'avgRating': 'N/A'});
     if (mergingInfo.Actors || mergingInfo.Genre) {
       mergingInfo.Genre = mergingInfo.Genre.split(',');
       mergingInfo.Actors = mergingInfo.Actors.split(',');
@@ -88,14 +89,16 @@ const mergeOMDBInfo = (movie, omdbInfo) => {
 const getOMDBInfo = (title) => {
   title = encodeURI(title);
   let URL = 'http://www.omdbapi.com/?apikey=' + key + '&t=' + title + '&plot=short&r=json';
-  let omdbInfo = axios.get(URL).then((result) => {
-    return result;
-  });
+  let omdbInfo = axios.get(URL)
+                .then((result) => {
+                  return result;
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
   return omdbInfo;
 };
 
 const moviePromises = grabTitles();
 const titleList = getMovieList(moviePromises);
-const movie = addOMDBInfo(titleList);
-
-module.export = movie;
+addOMDBInfo(titleList);

@@ -16,7 +16,7 @@ const movieSchema = new Schema({
     type: String
   },
   released: {
-    type: Date
+    type: Schema.Types.Mixed
   },
   genres: {
     type: Array
@@ -34,7 +34,7 @@ const movieSchema = new Schema({
     type: Array
   },
   avgRating: {
-    type: Number
+    type: Schema.Types.Mixed
   },
   director: {
     type: String
