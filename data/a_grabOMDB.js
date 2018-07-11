@@ -2,7 +2,6 @@ const movies = require('./grabMovies.js');
 const axios = require('axios');
 const _ = require('lodash');
 const key = require('../config/keys').OMDB_KEY;
-const async = require('async');
 
 let dbMovies = [];
 const timer = setTimeout(function(){grabOMDB(movies)}, 7000);
