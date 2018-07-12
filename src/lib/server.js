@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const genres = require('../routes/api/genres');
 const movies = require('../routes/api/movies');
+// const Movie = require('../models/Movie');
+
 
 const app = express();
 
@@ -15,8 +17,8 @@ mongoose
   .catch(error => console.log(error));
 
 app.get('/', (req, res) => res.send('sdlfkje'));
-// use routes
 
+// use routes
 app.use('/api/genres', genres);
 app.use('/api/movies', movies);
 

@@ -3,6 +3,10 @@ const axios = require('axios');
 const _ = require('lodash');
 const Movie = require('../src/models/Movie');
 const key = require('../config/keys').OMDB_KEY;
+const mongoose = require('mongoose');
+const db = require('../config/keys').mongoURI;
+
+mongoose.connect(db)
 
 const addOMDBInfo = async (titleList) => {
   let x = titleList.then((movies) => {
@@ -21,7 +25,7 @@ const addOMDBInfo = async (titleList) => {
 
         let temp = new Movie({
            title: newMovie.title,
-           contentType: newMovie.content_type,
+           contentType: newMovie.Type,
            episodeCount: newMovie.episode_source_count,
            rated: newMovie.Rated,
            released: newMovie.Released,
@@ -33,12 +37,14 @@ const addOMDBInfo = async (titleList) => {
            avgRating: newMovie.avgRating,
            director: newMovie.Director,
            actors: newMovie.Actors
-         });
-         // console.log(temp);
-        temp.save().then((doc) => {
-          console.log("++Saved", doc.title);
-        },(error) => {
-          console.log("--Unable", error);
+        })
+        // console.log(temp.title);
+        temp.save()
+        .then((movie) => {
+          console.log('++saved', movie.title);
+        })
+        .catch((error) => {
+          console.log(error);
         });
       });
     });
