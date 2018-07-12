@@ -22,7 +22,6 @@ const addOMDBInfo = async (titleList) => {
           ['title', 'avgRating', 'episode_source_count', 'Rated',
           'Released', 'Runtime', 'Genre', 'Director', 'Actors', 'Plot',
           'Awards', 'Poster', 'Ratings', 'Type'])
-
         let temp = new Movie({
            title: newMovie.title,
            contentType: newMovie.Type,
@@ -36,15 +35,15 @@ const addOMDBInfo = async (titleList) => {
            ratings: newMovie.Ratings,
            avgRating: newMovie.avgRating,
            director: newMovie.Director,
-           actors: newMovie.Actors
+           actors: newMovie.Actors,
+           runtime: newMovie.Runtime
         })
-        // console.log(temp.title);
         temp.save()
         .then((movie) => {
           console.log('++saved', movie.title);
         })
         .catch((error) => {
-          console.log(error);
+          console.log('--shit', error);
         });
       });
     });
@@ -84,6 +83,9 @@ const mergeOMDBInfo = (movie, omdbInfo) => {
     mergingInfo = _.merge(mergingInfo, {'avgRating': 'N/A'});
     if (mergingInfo.Actors || mergingInfo.Genre) {
       mergingInfo.Genre = mergingInfo.Genre.split(',');
+      mergingInfo.Genre.forEach(function(genre, i) {
+        mergingInfo.Genre[i] = mergingInfo.Genre[i].trim()
+      })
       mergingInfo.Actors = mergingInfo.Actors.split(',');
     }
     mergingInfo = makeAverageRating(mergingInfo);
