@@ -1,16 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
-
 //  load movie model
 const Movie = require('../../models/Movie');
+
+// goal is to list all genres on this page
+
+router.get('/', (req, res) => {
+  Movie.find({ contentType: 'movie'})
+  .sort({avgRating: -1})
+  .then(movies => res.send(movies))
+  .catch(err => res.status(err))
+})
+
+// router.get('/', (req,res, next) {
+//   Movie.find({} function (err, movies) {
+//     if (err)
+//     return next(err);
+//     res.json(movies)
+//   })
+// });
+
+// use pickflix;
+// db.getCollection("movies").find(
+//     {
+//         "genres" : /.*Adventure.*/i
+//     }
+// );
 //
-
-
-// aim is ot display all movies per genre i.e. api/comedy/movies
-router.get('/', (req, res) => res.json({
-  test
-}));
-//
-
 module.exports = router;
