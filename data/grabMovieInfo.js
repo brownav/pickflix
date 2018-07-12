@@ -15,7 +15,8 @@ const addOMDBInfo = async (titleList) => {
       if (title.indexOf('Marvel\'s') > -1) {
         title = title.slice(9);
       }
-      const omdbInfo = getOMDBInfo(title);
+      let year = movie.slug.slice(-4);
+      const omdbInfo = getOMDBInfo(title, year);
       const mergedInfo = mergeOMDBInfo(movie, omdbInfo);
       mergedInfo.then((info) => {
         let newMovie = _.pick(info,
@@ -36,7 +37,7 @@ const addOMDBInfo = async (titleList) => {
            avgRating: newMovie.avgRating,
            director: newMovie.Director,
            actors: newMovie.Actors,
-           runtime: newMovie.Runtime
+           runtime: newMovie.Runtime,
         })
         temp.save()
         .then((movie) => {
@@ -53,6 +54,7 @@ const addOMDBInfo = async (titleList) => {
 
 const makeAverageRating = (movieInfo) => {
   if (movieInfo.Ratings) {
+    movieInfo.Ratings = _.uniqBy(movieInfo.Ratings, 'Source')
     let total = 0;
     movieInfo.Ratings.forEach(rating => {
       if (rating.Source === 'Internet Movie Database') {
@@ -79,7 +81,11 @@ const mergeOMDBInfo = (movie, omdbInfo) => {
   let mergedInfo = omdbInfo.then((omdbInfo) => {
     omdbInfo = omdbInfo.data;
     let mergingInfo = _.merge(movie, omdbInfo);
+    if (mergingInfo.rt_critics_rating && mergingInfo.Ratings) {
+        mergingInfo.Ratings.push({'Source': 'Rotten Tomatoes', 'Value': mergingInfo.rt_critics_rating.toString()});
+    }
     mergingInfo = _.omit(mergingInfo, ['Title']);
+    mergingInfo = _.omit(mergingInfo, ['slug']);
     mergingInfo = _.merge(mergingInfo, {'avgRating': 'N/A'});
     if (mergingInfo.Actors || mergingInfo.Genre) {
       mergingInfo.Genre = mergingInfo.Genre.split(',');
@@ -94,17 +100,17 @@ const mergeOMDBInfo = (movie, omdbInfo) => {
   return mergedInfo;
 };
 
-const getOMDBInfo = (title) => {
-  title = encodeURI(title);
-  let URL = 'http://www.omdbapi.com/?apikey=' + key + '&t=' + title + '&plot=short&r=json';
-  let omdbInfo = axios.get(URL)
-                .then((result) => {
-                  return result;
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-  return omdbInfo;
+const getOMDBInfo = (title, year) => {
+    title = encodeURI(title);
+    let URL = 'http://www.omdbapi.com/?apikey=' + key + '&t=' + title + '&plot=short&r=json&y=' + year;
+    const omdbInfo = axios.get(URL)
+                  .then((result) => {
+                    return result;
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+    return omdbInfo;
 };
 
 const moviePromises = grabTitles();

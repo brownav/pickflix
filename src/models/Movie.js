@@ -41,6 +41,9 @@ const movieSchema = new Schema({
   },
   actors: {
     type: Array
+  },
+  runtime: {
+    type: String
   }
 });
 
