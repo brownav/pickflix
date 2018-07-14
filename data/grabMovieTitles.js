@@ -20,7 +20,7 @@ async function processMovies (promises) {
       response.data.forEach((item) => {
         let movie = _.pick(item, [
           'title', 'episode_source_count',
-          'rt_critics_rating', 'slug'
+          'rt_critics_rating', 'released_on'
         ])
         totalResults.push(movie);
       })

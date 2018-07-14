@@ -15,7 +15,7 @@ const addOMDBInfo = async (titleList) => {
       if (title.indexOf('Marvel\'s') > -1) {
         title = title.slice(9);
       }
-      let year = movie.slug.slice(-4);
+      let year = movie.released_on.slice(4);
       const omdbInfo = getOMDBInfo(title, year);
       const mergedInfo = mergeOMDBInfo(movie, omdbInfo);
       mergedInfo.then((info) => {
@@ -85,7 +85,7 @@ const mergeOMDBInfo = (movie, omdbInfo) => {
         mergingInfo.Ratings.push({'Source': 'Rotten Tomatoes', 'Value': mergingInfo.rt_critics_rating.toString()});
     }
     mergingInfo = _.omit(mergingInfo, ['Title']);
-    mergingInfo = _.omit(mergingInfo, ['slug']);
+    mergingInfo = _.omit(mergingInfo, ['released_on']);
     mergingInfo = _.merge(mergingInfo, {'avgRating': 'N/A'});
     if (mergingInfo.Actors || mergingInfo.Genre) {
       mergingInfo.Genre = mergingInfo.Genre.split(',');
