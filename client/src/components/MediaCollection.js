@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import Media from './Media.js'
 import './MediaCollection.css'
-
-const URL = "http://localhost:4000/api/movies/drama";
+import PropTypes from 'prop-types';
 
 class MediaCollection extends Component {
   constructor(props) {
@@ -12,10 +11,22 @@ class MediaCollection extends Component {
     this.state = { media: [] }
   }
 
+  grabURL = () => {
+    let urlGenre = this.props.genre.toLowerCase();
+    if (this.props.contentType === "Movie") {
+      let temp = "http://localhost:4000/api/movies/" + urlGenre
+      return temp;
+    } else if (this.props.contentType === "Show") {
+      let temp = "http://localhost:4000/api/shows/" + urlGenre
+      return temp;
+    }
+  }
+
   componentDidMount = () => {
+    const URL = this.grabURL();
+    console.log(URL);
     axios.get(URL)
     .then((response) => {
-      console.log(response.data);
       this.setState({ media: response.data })
     })
     .catch((error) => {
@@ -55,6 +66,11 @@ class MediaCollection extends Component {
       </div>
     );
   }
+}
+
+MediaCollection.propTypes = {
+  genre: PropTypes.string,
+  contentType: PropTypes.string
 }
 
 export default MediaCollection;

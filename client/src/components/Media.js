@@ -36,7 +36,21 @@ class Media extends Component {
       </article>
     );
   }
+}
 
+Media.propTypes = {
+  title: PropTypes.string.isRequired,
+  rated: PropTypes.string,
+  runtime: PropTypes.string,
+  director: PropTypes.string,
+  actors: PropTypes.array,
+  avgRating: PropTypes.number,
+  episodeCount: PropTypes.number,
+  image: PropTypes.string,
+  contentType: PropTypes.string,
+  released: PropTypes.string,
+  awards: PropTypes.string,
+  plot: PropTypes.string,
 }
 
 export default Media;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Genre from './Genre.js'
 import './GenreCollection.css';
+import PropTypes from 'prop-types';
 
 
 class GenreCollection extends Component {
@@ -39,10 +40,11 @@ class GenreCollection extends Component {
         <Genre
           key={index}
           name={genre}
+          contentType={this.props.contentType}
         />
       );
     });
-    return genreList
+    return genreList;
   }
 
   render () {
@@ -52,6 +54,10 @@ class GenreCollection extends Component {
       </div>
     );
   }
+}
+
+GenreCollection.propTypes = {
+  contentType: PropTypes.string
 }
 
 export default GenreCollection;
