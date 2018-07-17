@@ -12,29 +12,34 @@ class MediaCollection extends Component {
   }
 
   grabURL = () => {
-    // console.log(this.props);
-    // console.log(this.props.genre);
     let urlGenre = this.props.genre.toLowerCase();
-    if (this.props.contentType === "Movie" && this.props.genre !== "") {
+    console.log(this.props.contentType);
+    console.log(urlGenre);
+    if (this.props.contentType === "Movie") {
       let temp = "http://localhost:4000/api/movies/" + urlGenre
       return temp;
-    } else if (this.props.contentType === "Show" && this.props.genre !== "") {
+    } else if (this.props.contentType === "Show") {
       let temp = "http://localhost:4000/api/shows/" + urlGenre
       return temp;
     }
-  }
+  };
+
 
   componentDidMount = () => {
-    const URL = this.grabURL;
-    console.log(URL);
-    axios.get(URL)
-    .then((response) => {
-      this.setState({ media: response.data })
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+    if (this.props.genre) {
+      const URL = this.grabURL();
+      console.log(URL);
+      axios.get(URL)
+      .then((response) => {
+        this.setState({ media: response.data });
+        console.log(this.state.media[0].ratings[0].Value);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
   }
+
 
   renderMediaList = () => {
     const mediaList = this.state.media.map((media) => {

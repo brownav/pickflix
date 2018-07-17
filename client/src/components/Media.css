@@ -1,0 +1,31 @@
+h3 {
+  display: flex;
+  justify-content: center;
+}
+
+.title { grid-area: title; }
+
+.image {
+  display: flex;
+  grid-area: image;
+  justify-content: center;
+  align-items: center;
+}
+
+.col-one { grid-area: one; }
+
+.col-two { grid-area: two; }
+
+.plot { grid-area: plot; }
+
+
+.grid-container {
+  display: grid;
+  border-bottom: thin solid grey;
+  grid-template-areas:
+    'image title title'
+    'image one two'
+    'image plot plot';
+  grid-gap: 10px;
+  padding: 0em 4em 0em 4em;
+}

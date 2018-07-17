@@ -4,17 +4,22 @@ header {
   justify-content: space-between;
   border-bottom: solid grey thin;
   align-items: center;
+  background-color: rgba(92, 116, 249, 0.99)
 }
 
 h1 {
-  margin-left: 1em;
+  margin-left: 2em;
   margin-bottom: 0;
+  font-family: 'Monoton', cursive;
+  color: white;
 }
 
 .category-container {
   justify-content: space-between;
+  margin-right: 3.5em;
 }
 
 .btn {
-  margin: 1em;
+  margin: .5em;
+  background-color: rgba(92, 249, 147, 0.94);
 }

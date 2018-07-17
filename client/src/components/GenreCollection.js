@@ -3,7 +3,6 @@ import axios from 'axios';
 import Genre from './Genre.js'
 import './GenreCollection.css';
 import PropTypes from 'prop-types';
-import MediaCollection from './MediaCollection.js';
 
 class GenreCollection extends Component {
   constructor(props) {
@@ -24,7 +23,6 @@ class GenreCollection extends Component {
 
   componentDidMount = () => {
     const URL = this.grabURL();
-    console.log(URL);
     axios.get(URL)
     .then((response) => {
       this.setState({ genres: response.data})

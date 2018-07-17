@@ -13,23 +13,35 @@ class Media extends Component {
   render() {
 
     return (
-      <article className="media-container">
-        <h3>{this.props.title}</h3>
-        <p><strong>Rated:</strong> {this.props.rated}</p>
-        <p><strong>Runtime:</strong> {this.props.runtime}</p>
-        <p><strong>Director:</strong> {this.props.director}</p>
-        <p><strong>Actors:</strong> {this.props.actors}</p>
-        <p><strong>Runtime:</strong> {this.props.runtime}</p>
-        <p><strong>Average Score:</strong> {this.props.avgRating}</p>
+      <article className="grid-container">
 
-        {this.showEpisodeCount()}
-        <img className="image" src={this.props.image} alt="movie poster" height="200" width="150"/>
-
-        <p><strong>Released:</strong> {this.props.released}</p>
-        <p><strong>Awards:</strong> {this.props.awards}</p>
+        <div className="title">
+          <h3>{this.props.title}</h3>
+        </div>
 
 
-        <p><strong>Plot:</strong> {this.props.plot}</p>
+        <div className="image">
+          <img src={this.props.image} alt="movie poster" height="250" width="200"/>
+        </div>
+
+          <div className="col-one">
+            <p><strong>Rated:</strong> {this.props.rated}</p>
+            <p><strong>Runtime:</strong> {this.props.runtime}</p>
+            <p><strong>Director:</strong> {this.props.director}</p>
+            <p><strong>Actors:</strong> {this.props.actors}</p>
+          </div>
+
+          <div className="col-two">
+            <p><strong>Average Score:</strong> {this.props.avgRating}</p>
+            <p><strong>Runtime:</strong> {this.props.runtime}</p>
+            {this.showEpisodeCount()}
+            <p><strong>Released:</strong> {this.props.released}</p>
+            <p><strong>Awards:</strong> {this.props.awards}</p>
+          </div>
+          <div className="plot">
+            <p><strong>Plot:</strong> {this.props.plot}</p>
+          </div>
+
 
       </article>
     );

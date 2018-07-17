@@ -5,7 +5,7 @@ import './App.css';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
 } from 'react-router-dom';
 
 class App extends Component {
@@ -24,7 +24,6 @@ class App extends Component {
     })
   }
 
-
   grabGenre = (e) => {
     if (e.target.innerHTML === "Movie") {
       this.setState({ contentType: e.target.innerHTML})
@@ -34,8 +33,6 @@ class App extends Component {
   }
 
   render() {
-
-
     return(
       <Router>
         <main>
@@ -59,10 +56,15 @@ class App extends Component {
             />
 
             <Route
-              path="/show/genres"
-              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.selectedGenre}/>}
+              exact path={"/movie/" + this.state.selectedGenre}
+              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.state.selectedGenre}/>}
+
             />
 
+            <Route
+              exact path={"/show/" + this.state.selectedGenre}
+              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.state.selectedGenre}/>}
+            />
           </section>
         </main>
       </Router>
