@@ -1,10 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// const genres = require('../routes/api/genres');
 const movies = require('../routes/api/movies');
 const shows = require('../routes/api/shows')
-// const Movie = require('../models/Movie');
-
+const cors = require('cors');
 
 const app = express();
 
@@ -20,6 +18,7 @@ mongoose
 app.get('/', (req, res) => res.send('sdlfkje'));
 
 // use routes
+app.use(cors())
 app.use('/api/movies', movies)
 app.use('/api/shows', shows)
 

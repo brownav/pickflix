@@ -4,7 +4,6 @@ import Genre from './Genre.js'
 import './GenreCollection.css';
 import PropTypes from 'prop-types';
 
-
 class GenreCollection extends Component {
   constructor(props) {
     super(props)
@@ -49,7 +48,7 @@ class GenreCollection extends Component {
 
   render () {
     return (
-      <div className="genre-list">
+      <div className="row list-container">
         {this.renderGenres()}
       </div>
     );

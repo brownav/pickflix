@@ -17,11 +17,9 @@ class Media extends Component {
         <h3>{this.props.title}</h3>
         <p><strong>Rated:</strong> {this.props.rated}</p>
         <p><strong>Runtime:</strong> {this.props.runtime}</p>
-
         <p><strong>Director:</strong> {this.props.director}</p>
         <p><strong>Actors:</strong> {this.props.actors}</p>
         <p><strong>Runtime:</strong> {this.props.runtime}</p>
-
         <p><strong>Average Score:</strong> {this.props.avgRating}</p>
 
         {this.showEpisodeCount()}

@@ -1,23 +1,54 @@
 import React, { Component } from 'react';
-import Home from './components/Home.js';
-// import GenreCollection from './components/GenreCollection.js';
+import GenreCollection from './components/GenreCollection.js';
 import './App.css';
-// import {
-//   BrowserRouter as Router,
-//   Route
-// } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      contentType: ""
+    }
+  }
+
+  grabGenre = (e) => {
+    if (e.target.innerHTML === "Movie") {
+      this.setState({ contentType: e.target.innerHTML})
+    } else if (e.target.innerHTML === "Show") {
+      this.setState({ contentType: e.target.innerHTML})
+    }
+  }
   render() {
-    return (
-
+    return(
+      <Router>
         <main>
-          <h1>PickFlix</h1>
-          <Home />
+          <header className="row">
+            <h1>PickFlix</h1>
+            <section className="category-container">
+              <Link type="button" className="btn btn-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
+              <Link type="button" className="btn btn-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
+            </section>
+          </header>
 
+          <section>
+            <Route
+              path="/movie/genres"
+              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} />}
+            />
+
+            <Route
+              path="/show/genres"
+              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} />}
+            />
+          </section>
         </main>
-
-    );
+      </Router>
+    )
   }
 }
 
