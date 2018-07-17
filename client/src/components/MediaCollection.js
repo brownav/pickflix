@@ -12,18 +12,20 @@ class MediaCollection extends Component {
   }
 
   grabURL = () => {
+    // console.log(this.props);
+    // console.log(this.props.genre);
     let urlGenre = this.props.genre.toLowerCase();
-    if (this.props.contentType === "Movie") {
+    if (this.props.contentType === "Movie" && this.props.genre !== "") {
       let temp = "http://localhost:4000/api/movies/" + urlGenre
       return temp;
-    } else if (this.props.contentType === "Show") {
+    } else if (this.props.contentType === "Show" && this.props.genre !== "") {
       let temp = "http://localhost:4000/api/shows/" + urlGenre
       return temp;
     }
   }
 
   componentDidMount = () => {
-    const URL = this.grabURL();
+    const URL = this.grabURL;
     console.log(URL);
     axios.get(URL)
     .then((response) => {

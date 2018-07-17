@@ -3,6 +3,7 @@ import axios from 'axios';
 import Genre from './Genre.js'
 import './GenreCollection.css';
 import PropTypes from 'prop-types';
+import MediaCollection from './MediaCollection.js';
 
 class GenreCollection extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class GenreCollection extends Component {
           key={index}
           name={genre}
           contentType={this.props.contentType}
+          selectedGenreCallback={this.props.selectedGenreCallback}
         />
       );
     });
@@ -48,15 +50,19 @@ class GenreCollection extends Component {
 
   render () {
     return (
+
       <div className="row list-container">
         {this.renderGenres()}
       </div>
+
+
     );
   }
 }
 
 GenreCollection.propTypes = {
-  contentType: PropTypes.string
+  contentType: PropTypes.string,
+  selectedGenreCallback: PropTypes.func
 }
 
 export default GenreCollection;

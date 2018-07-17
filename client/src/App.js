@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GenreCollection from './components/GenreCollection.js';
+import MediaCollection from './components/MediaCollection';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -12,9 +13,17 @@ class App extends Component {
     super();
 
     this.state = {
-      contentType: ""
+      contentType: "",
+      selectedGenre: "",
     }
   }
+
+  setSelectedGenre = (genre) => {
+    this.setState({
+      selectedGenre: genre,
+    })
+  }
+
 
   grabGenre = (e) => {
     if (e.target.innerHTML === "Movie") {
@@ -23,7 +32,10 @@ class App extends Component {
       this.setState({ contentType: e.target.innerHTML})
     }
   }
+
   render() {
+
+
     return(
       <Router>
         <main>
@@ -38,13 +50,19 @@ class App extends Component {
           <section>
             <Route
               path="/movie/genres"
-              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} />}
+              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} selectedGenreCallback={this.setSelectedGenre}/>}
             />
 
             <Route
               path="/show/genres"
               render={(props) => <GenreCollection {...props} contentType={this.state.contentType} />}
             />
+
+            <Route
+              path="/show/genres"
+              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.selectedGenre}/>}
+            />
+
           </section>
         </main>
       </Router>
