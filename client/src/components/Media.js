@@ -33,7 +33,6 @@ class Media extends Component {
 
           <div className="col-two">
             <p><strong>Average Score:</strong> {this.props.avgRating}</p>
-            <p><strong>Runtime:</strong> {this.props.runtime}</p>
             {this.showEpisodeCount()}
             <p><strong>Released:</strong> {this.props.released}</p>
             <p><strong>Awards:</strong> {this.props.awards}</p>

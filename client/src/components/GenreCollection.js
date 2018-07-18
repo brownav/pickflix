@@ -48,12 +48,9 @@ class GenreCollection extends Component {
 
   render () {
     return (
-
       <div className="row list-container">
         {this.renderGenres()}
       </div>
-
-
     );
   }
 }

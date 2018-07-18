@@ -69,7 +69,7 @@ class MediaCollection extends Component {
   render() {
     return (
       <div className="media-collection">
-      {this.renderMediaList()}
+        {this.renderMediaList()}
       </div>
     );
   }

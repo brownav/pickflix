@@ -36,34 +36,34 @@ class App extends Component {
     return(
       <Router>
         <main>
-          <header className="row">
-            <h1>PickFlix</h1>
-            <section className="category-container">
-              <Link type="button" className="btn btn-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
-              <Link type="button" className="btn btn-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
-            </section>
-          </header>
+            <header>
+              <h1>Pick-A-Flix</h1>
+              <section className="category-container">
+                <Link type="button" className="btn btn-outline-warning btn-lg" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
+                <Link type="button" className="btn btn-outline-warning btn-lg" onClick={this.grabGenre} to="/show/genres">Show</Link>
+              </section>
+            </header>
 
           <section>
             <Route
               path="/movie/genres"
-              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} selectedGenreCallback={this.setSelectedGenre}/>}
+              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} selectedGenreCallback={this.setSelectedGenre} />}
             />
 
             <Route
               path="/show/genres"
-              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} />}
+              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} selectedGenreCallback={this.setSelectedGenre} />}
             />
 
             <Route
               exact path={"/movie/" + this.state.selectedGenre}
-              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.state.selectedGenre}/>}
+              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.state.selectedGenre} />}
 
             />
 
             <Route
               exact path={"/show/" + this.state.selectedGenre}
-              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.state.selectedGenre}/>}
+              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.state.selectedGenre} />}
             />
           </section>
         </main>

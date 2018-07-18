@@ -1,10 +1,13 @@
 header {
-  padding: 2em;
+  padding: 0em 2em 0em 2em;
   display: flex;
   justify-content: space-between;
-  border-bottom: solid grey thin;
+  border-bottom: solid white thin;
   align-items: center;
-  background-color: rgba(92, 116, 249, 0.99)
+  background-color: rgba(5, 2, 144);
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 h1 {
@@ -14,6 +17,13 @@ h1 {
   color: white;
 }
 
+.genre {
+  color: white;
+  margin: 0;
+}
+
+
+
 .category-container {
   justify-content: space-between;
   margin-right: 3.5em;
@@ -21,5 +31,12 @@ h1 {
 
 .btn {
   margin: .5em;
-  background-color: rgba(92, 249, 147, 0.94);
+}
+
+.fixed-header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index: 99;
 }
