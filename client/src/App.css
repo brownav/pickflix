@@ -4,17 +4,22 @@ header {
   justify-content: space-between;
   border-bottom: solid white thin;
   align-items: center;
-  background-color: rgba(5, 2, 144);
+  background-color: rgb(55, 145, 139);
   position: fixed;
   top: 0;
   width: 100%;
 }
 
+body {
+  background-color: rgb(31, 81, 78);
+}
+
 h1 {
   margin-left: 2em;
   margin-bottom: 0;
-  font-family: 'Monoton', cursive;
   color: white;
+  font-size: 3em;
+  font-family: 'Barrio', cursive;
 }
 
 .genre {
@@ -22,7 +27,9 @@ h1 {
   margin: 0;
 }
 
-
+p {
+  font-family: 'Nunito', sans-serif;
+}
 
 .category-container {
   justify-content: space-between;
@@ -31,6 +38,14 @@ h1 {
 
 .btn {
   margin: .5em;
+  color: white;
+  border-color: white;
+}
+
+.btn:hover {
+  background-color: rgb(234, 129, 49);
+  border-color: white;
+  color: white;
 }
 
 .fixed-header {

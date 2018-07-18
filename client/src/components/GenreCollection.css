@@ -7,4 +7,9 @@
 
 a {
   margin: 1em;
+  color: white;
+}
+
+a:hover {
+  color: rgb(234, 129, 49);
 }

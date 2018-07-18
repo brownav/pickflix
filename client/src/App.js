@@ -37,10 +37,10 @@ class App extends Component {
       <Router>
         <main>
             <header>
-              <h1>Pick-A-Flix</h1>
+              <h1>Pick-A-Flick</h1>
               <section className="category-container">
-                <Link type="button" className="btn btn-outline-warning btn-lg" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
-                <Link type="button" className="btn btn-outline-warning btn-lg" onClick={this.grabGenre} to="/show/genres">Show</Link>
+                <Link type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
+                <Link type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
               </section>
             </header>
 

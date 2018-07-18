@@ -21,7 +21,7 @@ class Media extends Component {
 
 
         <div className="image">
-          <img src={this.props.image} alt="movie poster" height="250" width="200"/>
+          <img src={this.props.image} alt="movie poster" height="220" width="150"/>
         </div>
 
           <div className="col-one">

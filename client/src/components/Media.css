@@ -1,14 +1,15 @@
-h3 {
-  display: flex;
-  justify-content: center;
+
+p {
+  font-size: .9em;
+  margin: 0;
 }
 
 .title {
   padding-top: .5em;
   grid-area: title;
   display: flex;
-  justify-content: center;
-
+  justify-content: left;
+  font-family: 'Nunito', sans-serif;
 }
 
 .image {
@@ -17,6 +18,8 @@ h3 {
   justify-content: center;
   float: left;
   object-fit: cover;
+  padding-right: 1em;
+
 }
 
 .col-one {
@@ -35,19 +38,18 @@ h3 {
 
 .plot {
   grid-area: plot;
-
  }
-
 
 .grid-container {
   display: grid;
   padding: 1em;
   border-bottom: thin solid grey;
   grid-template-areas:
-    'title title title'
+    'image title title'
     'image one two'
     'image plot plot';
   grid-gap: 5px;
   flex-wrap: wrap;
   background-color: white;
+  height: auto;
 }
