@@ -32,12 +32,21 @@ class App extends Component {
     }
   }
 
+  showGenre = () => {
+    if (this.state.selectedGenre === "") {
+      return null;
+    } else {
+      return <p className='genre'>Genre: {this.state.selectedGenre}</p>
+    }
+  }
+
   render() {
     return(
       <Router>
         <main>
             <header>
               <h1>Pick-A-Flick</h1>
+              {this.showGenre()}
               <section className="category-container">
                 <Link type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
                 <Link type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
