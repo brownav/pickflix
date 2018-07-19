@@ -1,0 +1,15 @@
+.card-title {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(55, 145, 139);
+}
+
+.card {
+  margin: 1em;
+}
+
+.card-img-top {
+  width: 150px;
+  height: 125px;
+}

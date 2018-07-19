@@ -8,7 +8,13 @@ class MediaCollection extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { media: [] }
+    this.sideBlock = React.createRef();
+    this.mainBlock = React.createRef();
+    this.collection = React.createRef();
+
+    this.state = {
+      media: []
+    }
   }
 
   grabURL = () => {
@@ -66,11 +72,40 @@ class MediaCollection extends Component {
     return mediaList
   }
 
+  openNav = () => {
+    const side = this.sideBlock.current;
+    side.style.width = "250px";
+    const main = this.mainBlock.current;
+    main.style.marginLeft = "-150px";
+    main.style.marginRight = "100px";
+
+  }
+
+  closeNav = () => {
+    const side = this.sideBlock.current;
+    side.style.width = "0";
+    const main = this.mainBlock.current;
+    main.style.marginRight = "0";
+    main.style.marginLeft = "0";
+  }
+
   render() {
+
     return (
-      <div className="media-collection">
-        {this.renderMediaList()}
-      </div>
+      <section>
+        <div id="mySidenav" className="sidenav" ref={this.sideBlock}>
+          <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>x</a>
+          <p>test</p>
+        </div>
+
+
+        <div id="main" ref={this.mainBlock}>
+          <div className="media-collection" ref={this.collection}>
+            <span onClick={this.openNav}>open</span>
+            {this.renderMediaList()}
+          </div>
+        </div>
+      </section>
     );
   }
 }

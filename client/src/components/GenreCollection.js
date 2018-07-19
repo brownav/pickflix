@@ -25,7 +25,8 @@ class GenreCollection extends Component {
     const URL = this.grabURL();
     axios.get(URL)
     .then((response) => {
-      this.setState({ genres: response.data})
+      const data = response.data.sort();
+      this.setState({ genres: data})
     })
     .catch((error) => {
       console.log(error);
@@ -33,7 +34,7 @@ class GenreCollection extends Component {
   }
 
   renderGenres = () => {
-    const genreList = this.state.genres.map((genre, index) => {
+    let genreList = this.state.genres.map((genre, index) => {
       return (
         <Genre
           key={index}
@@ -43,7 +44,7 @@ class GenreCollection extends Component {
         />
       );
     });
-    return genreList;
+    return genreList
   }
 
   render () {

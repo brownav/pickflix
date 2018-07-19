@@ -1,8 +1,8 @@
 .list-container {
-  padding: 4.3em 10em 0em 10em;
-  margin: 0;
+  display: flex;
+  padding: 4.5em 5em 0em 5em;
   justify-content: center;
-  border-bottom: thin solid grey;
+  /* align-items: center; */
 }
 
 a {

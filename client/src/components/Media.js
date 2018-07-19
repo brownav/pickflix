@@ -11,37 +11,31 @@ class Media extends Component {
   }
 
   render() {
-
     return (
       <article className="grid-container">
 
         <div className="title">
           <h3>{this.props.title}</h3>
         </div>
-
-
         <div className="image">
           <img src={this.props.image} alt="movie poster" height="220" width="150"/>
         </div>
+        <div className="col-one">
+          <p><strong>Rated:</strong> {this.props.rated}</p>
+          <p><strong>Runtime:</strong> {this.props.runtime}</p>
+          <p><strong>Director:</strong> {this.props.director}</p>
+          <p><strong>Actors:</strong> {this.props.actors}</p>
+        </div>
 
-          <div className="col-one">
-            <p><strong>Rated:</strong> {this.props.rated}</p>
-            <p><strong>Runtime:</strong> {this.props.runtime}</p>
-            <p><strong>Director:</strong> {this.props.director}</p>
-            <p><strong>Actors:</strong> {this.props.actors}</p>
-          </div>
-
-          <div className="col-two">
-            <p><strong>Average Score:</strong> {this.props.avgRating}</p>
-            {this.showEpisodeCount()}
-            <p><strong>Released:</strong> {this.props.released}</p>
-            <p><strong>Awards:</strong> {this.props.awards}</p>
-          </div>
-          <div className="plot">
-            <p><strong>Plot:</strong> {this.props.plot}</p>
-          </div>
-
-
+        <div className="col-two">
+          <p><strong>Average Score:</strong> {this.props.avgRating}</p>
+          {this.showEpisodeCount()}
+          <p><strong>Released:</strong> {this.props.released}</p>
+          <p><strong>Awards:</strong> {this.props.awards}</p>
+        </div>
+        <div className="plot">
+          <p><strong>Plot:</strong> {this.props.plot}</p>
+        </div>
       </article>
     );
   }
