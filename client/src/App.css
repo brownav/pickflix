@@ -27,7 +27,7 @@ h1 {
   margin: 0;
 }
 
-p {
+p, h4 {
   font-family: 'Nunito', sans-serif;
 }
 
@@ -36,13 +36,13 @@ p {
   margin-right: 3.5em;
 }
 
-.btn {
+#header-btn {
   margin: .5em;
   color: white;
   border-color: white;
 }
 
-.btn:hover {
+#header-btn:hover {
   background-color: rgb(234, 129, 49);
   border-color: white;
   color: white;

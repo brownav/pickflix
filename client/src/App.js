@@ -48,8 +48,8 @@ class App extends Component {
               <h1>Pick-A-Flick</h1>
               {this.showGenre()}
               <section className="category-container">
-                <Link type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
-                <Link type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
+                <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
+                <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
               </section>
             </header>
 

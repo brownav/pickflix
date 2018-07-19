@@ -53,3 +53,13 @@ p {
   background-color: white;
   height: auto;
 }
+
+.btn {
+  width: 5em;
+}
+
+.btn:hover {
+  background-color: rgb(234, 129, 49);
+  border-color: white;
+  color: white;
+}

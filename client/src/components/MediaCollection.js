@@ -13,7 +13,8 @@ class MediaCollection extends Component {
     this.collection = React.createRef();
 
     this.state = {
-      media: []
+      media: [],
+      selectedTitle: ""
     }
   }
 
@@ -46,6 +47,10 @@ class MediaCollection extends Component {
     }
   }
 
+  setSelectedTitle = (title) => {
+    this.setState({ selectedTitle: title});
+    this.openNav(title);
+  }
 
   renderMediaList = () => {
     const mediaList = this.state.media.map((media) => {
@@ -66,19 +71,31 @@ class MediaCollection extends Component {
           ratings={media.ratings}
           actors={media.actors}
           episodeCount={media.episodeCount}
+          selectedTitleCallback={this.setSelectedTitle}
         />
       );
     });
     return mediaList
   }
 
-  openNav = () => {
+  openNav = (title) => {
     const side = this.sideBlock.current;
-    side.style.width = "250px";
-    const main = this.mainBlock.current;
-    main.style.marginLeft = "-150px";
-    main.style.marginRight = "100px";
+    side.style.width = "15em";
+    // console.log({title});
 
+    // console.log({t});
+
+
+
+
+    let string = Object.values(title).join()
+    console.log({string});
+  
+
+    side.append(<p>string</p>)
+    const main = this.mainBlock.current;
+    main.style.marginLeft = "-6em";
+    main.style.marginRight = "8em";
   }
 
   closeNav = () => {
@@ -94,10 +111,9 @@ class MediaCollection extends Component {
     return (
       <section>
         <div id="mySidenav" className="sidenav" ref={this.sideBlock}>
+          <span><h4>Tiebreaker</h4></span>
           <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>x</a>
-          <p>test</p>
         </div>
-
 
         <div id="main" ref={this.mainBlock}>
           <div className="media-collection" ref={this.collection}>

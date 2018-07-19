@@ -10,6 +10,10 @@ class Media extends Component {
     }
   }
 
+  selectedTitleCallback = () => {
+    this.props.selectedTitleCallback(this.props.title);
+  }
+
   render() {
     return (
       <article className="grid-container">
@@ -32,6 +36,7 @@ class Media extends Component {
           {this.showEpisodeCount()}
           <p><strong>Released:</strong> {this.props.released}</p>
           <p><strong>Awards:</strong> {this.props.awards}</p>
+          <button onClick={this.selectedTitleCallback} type="button" className="btn btn-outline-dark btn-sm">Select</button>
         </div>
         <div className="plot">
           <p><strong>Plot:</strong> {this.props.plot}</p>
@@ -54,6 +59,7 @@ Media.propTypes = {
   released: PropTypes.string,
   awards: PropTypes.string,
   plot: PropTypes.string,
+  selectedTitleCallback: PropTypes.func
 }
 
 export default Media;
