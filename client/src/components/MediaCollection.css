@@ -12,7 +12,6 @@
   right: 0;
   background-color: white;
   overflow-x: hidden;
-  transition: 0.5s;
   padding-top: 1em;
   flex-wrap: wrap;
 }
@@ -22,7 +21,6 @@
     text-decoration: none;
     color: black;
     display: block;
-    transition: 0.3s;
 }
 
 .sidenav a:hover {
@@ -34,10 +32,6 @@
     top: 0;
     right: .25em;
     font-size: 1.5em;
-}
-
-#main {
-    transition: margin-left .5s;
 }
 
 a.closebtn {

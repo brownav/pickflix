@@ -3,6 +3,8 @@ import axios from 'axios'
 import Media from './Media.js'
 import './MediaCollection.css'
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+
 
 class MediaCollection extends Component {
   constructor(props) {
@@ -11,14 +13,13 @@ class MediaCollection extends Component {
     this.state = {
       media: [],
       navOpen: false,
-      selectedTitles: []
+      selectedTitles: [],
+      winner: ""
     }
   }
 
   grabURL = () => {
     let urlGenre = this.props.genre.toLowerCase();
-    console.log(this.props.contentType);
-    console.log(urlGenre);
     if (this.props.contentType === "Movie") {
       let temp = "http://localhost:4000/api/movies/" + urlGenre
       return temp;
@@ -32,7 +33,6 @@ class MediaCollection extends Component {
   componentDidMount = () => {
     if (this.props.genre) {
       const URL = this.grabURL();
-      console.log(URL);
       axios.get(URL)
       .then((response) => {
         this.setState({ media: response.data });
@@ -45,7 +45,9 @@ class MediaCollection extends Component {
   }
 
   setSelectedTitle = (title) => {
-    this.setState({ selectedTitles: [...this.state.selectedTitles, title]});
+    if (!this.state.selectedTitles.includes(title) && this.state.selectedTitles.length < 5) {
+      this.setState({ selectedTitles: [...this.state.selectedTitles, title]});
+    }
     this.openNav();
   }
 
@@ -78,19 +80,40 @@ class MediaCollection extends Component {
   renderSelectedTitles = () => {
     return this.state.selectedTitles.map((title, i) => {
       return (
-        <p key={`selected-title-${i}`}>{title}</p>
+        <p key={`selected-title-${i}`}>{i + 1}. {title}</p>
       );
     });
   }
 
-  openNav = (title) => {
+  openNav = () => {
     this.setState({navOpen: true});
-
   }
 
   closeNav = () => {
     this.setState({navOpen: false});
+    this.setState({ selectedTitles: [], winner: "" })
   }
+
+  tieBreaker = () => {
+    let winner = _.sample(this.state.selectedTitles);
+    this.setState({ selectedTitles: [], winner: "" });
+    this.showWinner(winner);
+  }
+
+  showWinner = (winner) => {
+    console.log(winner);
+    if (winner) {
+      this.setState({ winner: winner })
+    }
+  }
+
+  renderButton = () => {
+    if (this.state.selectedTitles.length >= 2) {
+      return <button onClick={this.tieBreaker} type="button" className="btn btn-outline-dark btn-sm">Select</button>
+    }
+  }
+
+
 
   render() {
     let sideNavStyle = {
@@ -112,17 +135,20 @@ class MediaCollection extends Component {
       }
     }
 
+    const winner = this.state.winner ? <h3>{this.state.winner}</h3> : null;
+
     return (
       <section>
         <div id="mySidenav" className="sidenav" style={sideNavStyle}>
           <span><h4>Tiebreaker</h4></span>
           <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>x</a>
+          {winner}
           {this.renderSelectedTitles()}
+          {this.renderButton()}
         </div>
 
         <div id="main" style={mainStyle}>
           <div className="media-collection">
-            <span onClick={this.openNav}>open</span>
             {this.renderMediaList()}
           </div>
         </div>
