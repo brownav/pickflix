@@ -8,13 +8,10 @@ class MediaCollection extends Component {
   constructor(props) {
     super(props);
 
-    this.sideBlock = React.createRef();
-    this.mainBlock = React.createRef();
-    this.collection = React.createRef();
-
     this.state = {
       media: [],
-      selectedTitle: ""
+      navOpen: false,
+      selectedTitles: []
     }
   }
 
@@ -48,8 +45,8 @@ class MediaCollection extends Component {
   }
 
   setSelectedTitle = (title) => {
-    this.setState({ selectedTitle: title});
-    this.openNav(title);
+    this.setState({ selectedTitles: [...this.state.selectedTitles, title]});
+    this.openNav();
   }
 
   renderMediaList = () => {
@@ -78,45 +75,53 @@ class MediaCollection extends Component {
     return mediaList
   }
 
+  renderSelectedTitles = () => {
+    return this.state.selectedTitles.map((title, i) => {
+      return (
+        <p key={`selected-title-${i}`}>{title}</p>
+      );
+    });
+  }
+
   openNav = (title) => {
-    const side = this.sideBlock.current;
-    side.style.width = "15em";
-    // console.log({title});
+    this.setState({navOpen: true});
 
-    // console.log({t});
-
-
-
-
-    let string = Object.values(title).join()
-    console.log({string});
-  
-
-    side.append(<p>string</p>)
-    const main = this.mainBlock.current;
-    main.style.marginLeft = "-6em";
-    main.style.marginRight = "8em";
   }
 
   closeNav = () => {
-    const side = this.sideBlock.current;
-    side.style.width = "0";
-    const main = this.mainBlock.current;
-    main.style.marginRight = "0";
-    main.style.marginLeft = "0";
+    this.setState({navOpen: false});
   }
 
   render() {
+    let sideNavStyle = {
+      width: "0"
+    };
+    let mainStyle = {
+      marginRight: "0",
+      marginLeft: "0"
+    };
+
+    if (this.state.navOpen) {
+      sideNavStyle = {
+        width: "15em"
+      };
+
+      mainStyle = {
+        marginRight: "8em",
+        marginLeft: "-6em"
+      }
+    }
 
     return (
       <section>
-        <div id="mySidenav" className="sidenav" ref={this.sideBlock}>
+        <div id="mySidenav" className="sidenav" style={sideNavStyle}>
           <span><h4>Tiebreaker</h4></span>
           <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>x</a>
+          {this.renderSelectedTitles()}
         </div>
 
-        <div id="main" ref={this.mainBlock}>
-          <div className="media-collection" ref={this.collection}>
+        <div id="main" style={mainStyle}>
+          <div className="media-collection">
             <span onClick={this.openNav}>open</span>
             {this.renderMediaList()}
           </div>
