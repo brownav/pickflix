@@ -39,6 +39,23 @@ a.closebtn {
   padding: 0;
 }
 
-h4 {
+.list {
   padding-left: .5em;
+}
+
+#submit-btn {
+  width: 100%;
+}
+
+h4, h5, .winner-img {
+  display: flex;
+  justify-content: center;
+}
+
+#winner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1em;
 }

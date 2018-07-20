@@ -11,7 +11,7 @@ class Media extends Component {
   }
 
   selectedTitleCallback = () => {
-    this.props.selectedTitleCallback(this.props.title);
+    this.props.selectedTitleCallback(this.props.title, this.props.image);
   }
 
   render() {

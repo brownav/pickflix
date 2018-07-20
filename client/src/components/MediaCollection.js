@@ -14,7 +14,8 @@ class MediaCollection extends Component {
       media: [],
       navOpen: false,
       selectedTitles: [],
-      winner: ""
+      winner: "",
+      selectedImages: []
     }
   }
 
@@ -44,10 +45,11 @@ class MediaCollection extends Component {
     }
   }
 
-  setSelectedTitle = (title) => {
+  setSelectedTitle = (title, image) => {
     if (!this.state.selectedTitles.includes(title) && this.state.selectedTitles.length < 5) {
       this.setState({ selectedTitles: [...this.state.selectedTitles, title]});
     }
+    this.setState({ selectedImages: [...this.state.selectedImages, image]});
     this.openNav();
   }
 
@@ -80,7 +82,7 @@ class MediaCollection extends Component {
   renderSelectedTitles = () => {
     return this.state.selectedTitles.map((title, i) => {
       return (
-        <p key={`selected-title-${i}`}>{i + 1}. {title}</p>
+        <p className="list" key={`selected-title-${i}`}>{i + 1}. {title}</p>
       );
     });
   }
@@ -91,29 +93,29 @@ class MediaCollection extends Component {
 
   closeNav = () => {
     this.setState({navOpen: false});
-    this.setState({ selectedTitles: [], winner: "" })
+    this.setState({ selectedTitles: [], winner: "", image: "", selectedImages: [] })
   }
 
   tieBreaker = () => {
     let winner = _.sample(this.state.selectedTitles);
+    let imageIndex = this.state.selectedTitles.indexOf(winner);
+    let image = this.state.selectedImages[imageIndex];
+
     this.setState({ selectedTitles: [], winner: "" });
-    this.showWinner(winner);
+    this.showWinner(winner, image);
   }
 
-  showWinner = (winner) => {
-    console.log(winner);
+  showWinner = (winner, image) => {
     if (winner) {
-      this.setState({ winner: winner })
+      this.setState({ winner: winner, image: image })
     }
   }
 
   renderButton = () => {
     if (this.state.selectedTitles.length >= 2) {
-      return <button onClick={this.tieBreaker} type="button" className="btn btn-outline-dark btn-sm">Select</button>
+      return <button onClick={this.tieBreaker} type="button" id="submit-btn" className="btn btn-outline-dark btn-sm">Submit</button>
     }
   }
-
-
 
   render() {
     let sideNavStyle = {
@@ -135,7 +137,7 @@ class MediaCollection extends Component {
       }
     }
 
-    const winner = this.state.winner ? <h3>{this.state.winner}</h3> : null;
+    const winner = this.state.winner ? <div id="winner-container"><h5>{this.state.winner}</h5><img src={this.state.image} className="winner-img" alt="movie poster" height="220" width="150"/></div> : null;
 
     return (
       <section>
