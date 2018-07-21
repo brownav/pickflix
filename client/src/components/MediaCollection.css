@@ -51,6 +51,11 @@ a.closebtn {
 
 #submit-btn {
   width: 100%;
+  background-color: white;
+}
+
+#submit-btn:hover {
+  background-color: rgb(234, 129, 49)
 }
 
 h4, h5, .winner-img {

@@ -41,7 +41,7 @@ p {
  }
 
 #drp-down {
-  height: 2em;
+  height: 1.5em;
   width: 3em;
   display: flex;
   justify-content: center;
@@ -53,6 +53,10 @@ p {
 }
 
 #drp-down:hover {
+  background-color: white;
+}
+
+.dropdown-toggle:active {
   background-color: white;
 }
 
@@ -70,8 +74,8 @@ p {
   height: auto;
 }
 
-div.dropdown-menu.show {
-  transform: translate3d(0px, 20px, 0px);
+.dropdown-menu.show {
+  transform: translate3d(0px, 10px, 0px);
 }
 
 .btn {
