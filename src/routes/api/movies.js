@@ -27,6 +27,7 @@ router.get('/genres', (req, res) => {
   .catch(err => res.status(err))
 })
 
+
 // gets all movies for specific genre
 movieGenres.forEach(function(genre) {
   let lcgenre = genre.toLowerCase();

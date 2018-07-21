@@ -8,7 +8,7 @@ p {
   padding-top: .5em;
   grid-area: title;
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   font-family: 'Nunito', sans-serif;
 }
 
@@ -40,6 +40,22 @@ p {
   grid-area: plot;
  }
 
+#drp-down {
+  height: 2em;
+  width: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: black;
+  font-size: 1.5em;
+  color: rgb(234, 129, 49);
+}
+
+#drp-down:hover {
+  background-color: white;
+}
+
 .grid-container {
   display: grid;
   padding: 1em;
@@ -52,6 +68,10 @@ p {
   flex-wrap: wrap;
   background-color: white;
   height: auto;
+}
+
+div.dropdown-menu.show {
+  transform: translate3d(0px, 20px, 0px);
 }
 
 .btn {

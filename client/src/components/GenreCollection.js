@@ -26,7 +26,7 @@ class GenreCollection extends Component {
     axios.get(URL)
     .then((response) => {
       const data = response.data.sort();
-      this.setState({ genres: data})
+      this.setState({ genres: data })
     })
     .catch((error) => {
       console.log(error);

@@ -1,19 +1,25 @@
 .media-collection {
-  padding: 4.5em 8em 0em 8em;
+  padding: 4.5em 10em 0em 10em;
   background-color: rgb(31, 81, 78);
 }
 
 .sidenav {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
   margin: 0em 0em 2em 0em;
   width: 0;
   position: fixed;
   z-index: 1;
-  top: 6em;
+  top: 4.5em;
   right: 0;
   background-color: white;
   overflow-x: hidden;
   padding-top: 1em;
   flex-wrap: wrap;
+  background-color: rgb(255, 235, 183);
+  border: thin solid grey;
 }
 
 .sidenav a {
@@ -40,7 +46,7 @@ a.closebtn {
 }
 
 .list {
-  padding-left: .5em;
+  padding: .5em;
 }
 
 #submit-btn {

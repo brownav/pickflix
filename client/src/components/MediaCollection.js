@@ -13,9 +13,8 @@ class MediaCollection extends Component {
     this.state = {
       media: [],
       navOpen: false,
-      selectedTitles: [],
+      selectedMovies: [],
       winner: "",
-      selectedImages: []
     }
   }
 
@@ -30,14 +29,12 @@ class MediaCollection extends Component {
     }
   };
 
-
   componentDidMount = () => {
     if (this.props.genre) {
       const URL = this.grabURL();
       axios.get(URL)
       .then((response) => {
         this.setState({ media: response.data });
-        console.log(this.state.media[0].ratings[0].Value);
       })
       .catch((error) => {
         console.log(error);
@@ -45,11 +42,15 @@ class MediaCollection extends Component {
     }
   }
 
-  setSelectedTitle = (title, image) => {
-    if (!this.state.selectedTitles.includes(title) && this.state.selectedTitles.length < 5) {
-      this.setState({ selectedTitles: [...this.state.selectedTitles, title]});
+  setSelectedTitle = (movie) => {
+    let values = [];
+    Object.values(this.state.selectedMovies).forEach(function(value) {
+      values.push(value.title);
+    })
+    if (!values.includes(movie.title) && this.state.winner === "" && this.state.selectedMovies.length < 5) {
+      this.setState({
+        selectedMovies: [...this.state.selectedMovies, movie]});
     }
-    this.setState({ selectedImages: [...this.state.selectedImages, image]});
     this.openNav();
   }
 
@@ -79,10 +80,10 @@ class MediaCollection extends Component {
     return mediaList
   }
 
-  renderSelectedTitles = () => {
-    return this.state.selectedTitles.map((title, i) => {
+  renderSelectedMovies = () => {
+    return this.state.selectedMovies.map((movie, i) => {
       return (
-        <p className="list" key={`selected-title-${i}`}>{i + 1}. {title}</p>
+        <p className="list" key={`selected-title-${i}`}>{i + 1}. <strong>{movie.title}</strong> ({movie.rating})</p>
       );
     });
   }
@@ -93,26 +94,29 @@ class MediaCollection extends Component {
 
   closeNav = () => {
     this.setState({navOpen: false});
-    this.setState({ selectedTitles: [], winner: "", image: "", selectedImages: [] })
+    this.setState({
+      selectedMovies: [],
+      winner: ""
+    });
   }
 
   tieBreaker = () => {
-    let winner = _.sample(this.state.selectedTitles);
-    let imageIndex = this.state.selectedTitles.indexOf(winner);
-    let image = this.state.selectedImages[imageIndex];
-
-    this.setState({ selectedTitles: [], winner: "" });
-    this.showWinner(winner, image);
+    let winner = _.sample(this.state.selectedMovies);
+    this.setState({
+      selectedMovies: [],
+      winner: ""
+    })
+    this.showWinner(winner);
   }
 
-  showWinner = (winner, image) => {
+  showWinner = (winner) => {
     if (winner) {
-      this.setState({ winner: winner, image: image })
+      this.setState({ winner: winner });
     }
   }
 
   renderButton = () => {
-    if (this.state.selectedTitles.length >= 2) {
+    if (this.state.selectedMovies.length >= 2) {
       return <button onClick={this.tieBreaker} type="button" id="submit-btn" className="btn btn-outline-dark btn-sm">Submit</button>
     }
   }
@@ -128,7 +132,7 @@ class MediaCollection extends Component {
 
     if (this.state.navOpen) {
       sideNavStyle = {
-        width: "15em"
+        width: "17em"
       };
 
       mainStyle = {
@@ -137,15 +141,15 @@ class MediaCollection extends Component {
       }
     }
 
-    const winner = this.state.winner ? <div id="winner-container"><h5>{this.state.winner}</h5><img src={this.state.image} className="winner-img" alt="movie poster" height="220" width="150"/></div> : null;
+    const winner = this.state.winner ? <div id="winner-container"><h5>{this.state.winner.title}   ({this.state.winner.rating})</h5><img src={this.state.winner.image}className="winner-img" alt="movie poster" height="250" width="200"/></div> : null;
 
     return (
       <section>
         <div id="mySidenav" className="sidenav" style={sideNavStyle}>
-          <span><h4>Tiebreaker</h4></span>
+          <span><h4>-Pick For Me-</h4></span>
           <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>x</a>
           {winner}
-          {this.renderSelectedTitles()}
+          {this.renderSelectedMovies()}
           {this.renderButton()}
         </div>
 

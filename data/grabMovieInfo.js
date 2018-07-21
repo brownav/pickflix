@@ -12,10 +12,11 @@ const addOMDBInfo = async (titleList) => {
   let x = titleList.then((movies) => {
     movies.forEach((movie) => {
       let title = movie.title;
+      let year = movie.released_on;
       if (title.indexOf('Marvel\'s') > -1) {
         title = title.slice(9);
       }
-      let year = movie.released_on.slice(4);
+      year = year.slice(0, 4);
       const omdbInfo = getOMDBInfo(title, year);
       const mergedInfo = mergeOMDBInfo(movie, omdbInfo);
       mergedInfo.then((info) => {
@@ -65,7 +66,8 @@ const makeAverageRating = (movieInfo) => {
       if (rating.Source === 'Rotten Tomatoes' || rating.Source === 'Metacritic') {
         rating.Value = rating.Value.substr(0, 2);
         if (rating.Value === '10') {
-          total += 10
+          rating.Value = 10;
+          total += 10;
         } else {
           rating.Value = parseFloat(rating.Value) / 10;
           total += rating.Value;
@@ -73,6 +75,9 @@ const makeAverageRating = (movieInfo) => {
       }
     })
     movieInfo.avgRating = Number((total / movieInfo.Ratings.length).toFixed(1));
+    if (movieInfo.avgRating === isNaN) {
+      movieInfo.avgRating = 'N/A'
+    }
   }
   return movieInfo;
 };

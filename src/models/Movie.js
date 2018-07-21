@@ -47,8 +47,4 @@ const movieSchema = new Schema({
   }
 });
 
-// method to render all movies based on genre types?
-// https://docs.mongodb.com/manual/indexes/
-
-
 module.exports = mongoose.model('Movie', movieSchema);

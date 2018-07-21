@@ -1,0 +1,59 @@
+h1 {
+  margin-bottom: 0;
+  color: white;
+  font-size: 3em;
+  font-family: 'Barrio', cursive;
+}
+
+.genre {
+  color: white;
+  margin: 0;
+}
+
+p, h4, h5 {
+  font-family: 'Nunito', sans-serif;
+}
+
+.category-container {
+  justify-content: space-between;
+  margin-right: 3.5em;
+}
+
+img {
+  border: thin solid grey;
+}
+
+.category {
+  margin: .5em;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.navbar-fixed-top {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid white thin;
+  background-color: rgb(31, 81, 78);
+
+}
+
+#header-btn {
+  margin: .5em;
+  color: white;
+  border-color: white;
+}
+
+#header-btn:hover {
+  background-color: rgb(234, 129, 49);
+  border-color: white;
+  color: white;
+}
+
+.fixed-header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index: 99;
+}

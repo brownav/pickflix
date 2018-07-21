@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import GenreCollection from './components/GenreCollection.js';
-import MediaCollection from './components/MediaCollection';
+import Main from './components/Main';
+import Header from './components/Header';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -9,74 +9,14 @@ import {
 } from 'react-router-dom';
 
 class App extends Component {
-  constructor() {
-    super();
 
-    this.state = {
-      contentType: "",
-      selectedGenre: "",
-    }
-  }
-
-  setSelectedGenre = (genre) => {
-    this.setState({
-      selectedGenre: genre,
-    })
-  }
-
-  grabGenre = (e) => {
-    if (e.target.innerHTML === "Movie") {
-      this.setState({ contentType: e.target.innerHTML})
-    } else if (e.target.innerHTML === "Show") {
-      this.setState({ contentType: e.target.innerHTML})
-    }
-  }
-
-  showGenre = () => {
-    if (this.state.selectedGenre === "") {
-      return null;
-    } else {
-      return <p className='genre'>Genre: {this.state.selectedGenre}</p>
-    }
-  }
 
   render() {
     return(
-      <Router>
         <main>
-            <header>
-              <h1>Pick-A-Flick</h1>
-              {this.showGenre()}
-              <section className="category-container">
-                <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
-                <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
-              </section>
-            </header>
-
-          <section>
-            <Route
-              path="/movie/genres"
-              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} selectedGenreCallback={this.setSelectedGenre} />}
-            />
-
-            <Route
-              path="/show/genres"
-              render={(props) => <GenreCollection {...props} contentType={this.state.contentType} selectedGenreCallback={this.setSelectedGenre} />}
-            />
-
-            <Route
-              exact path={"/movie/" + this.state.selectedGenre}
-              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.state.selectedGenre} />}
-
-            />
-
-            <Route
-              exact path={"/show/" + this.state.selectedGenre}
-              render={(props) => <MediaCollection {...props} contentType={this.state.contentType} genre={this.state.selectedGenre} />}
-            />
-          </section>
+          <Header />
+          <footer></footer>
         </main>
-      </Router>
     )
   }
 }
