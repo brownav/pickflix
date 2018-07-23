@@ -1,4 +1,20 @@
 #main-container {
-  margin-top: 10em;
+  margin: 5em 8em 5em 8em;
   color: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+a {
+  margin: 0;
+  color: rgb(234, 129, 49);
+  font-style: underline;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }

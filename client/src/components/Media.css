@@ -56,10 +56,6 @@ p {
   background-color: white;
 }
 
-.dropdown-toggle:active {
-  background-color: white;
-}
-
 .grid-container {
   display: grid;
   padding: 1em;
@@ -72,6 +68,10 @@ p {
   flex-wrap: wrap;
   background-color: white;
   height: auto;
+}
+
+p#drp-down.btn.btn-outline-primary.btn-sm.dropdown-toggle {
+  background-color: white;
 }
 
 .dropdown-menu.show {

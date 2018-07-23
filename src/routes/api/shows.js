@@ -10,7 +10,7 @@ const showGenres = ["Drama", "Romance", "Fantasy", "Horror", "Comedy",
                 "Reality-TV", "Sport", "Documentary", "History", "Talk-Show",
                 "Western", "N/A", "Musical", "War", "Game-Show", "News", "Short"]
 
-// gets all movies
+// gets all shows
 router.get('/', (req, res) => {
   Movie.find({ contentType: 'series'})
   .sort({avgRating: -1})
