@@ -25,10 +25,9 @@ app.use('/movies', movies)
 app.use('/shows', shows)
 
 app.use(express.static(path.join(__dirname, "client", "build")))
+
 app.get("*", (req, res) => {
-    setTimeout(function() {
-      res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-    }, 2000)  
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 
