@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //  load movie model
-const Movie = require('../../models/Movie');
+const Movie = require('../models/Movie');
 
 const showGenres = ["Drama", "Romance", "Fantasy", "Horror", "Comedy",
                 "Mystery", "Sci-Fi", "Crime", "Action", "Adventure",

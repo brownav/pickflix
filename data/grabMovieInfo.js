@@ -1,7 +1,7 @@
 const {grabTitles, getMovieList} = require('./grabMovieTitles');
 const axios = require('axios');
 const _ = require('lodash');
-const Movie = require('../src/models/Movie');
+const Movie = require('../models/Movie');
 const key = require('../config/keys').OMDB_KEY;
 const mongoose = require('mongoose');
 const db = require('../config/keys').mongoURI;
