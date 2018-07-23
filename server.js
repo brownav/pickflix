@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const movies = require('./routes/movies');
-const shows = require('./routes/shows')
+const movies = require('./routes/api/movies');
+const shows = require('./routes/api/shows')
 const cors = require('cors');
 const path = require('path');
 const port = process.env.PORT || 4000;
@@ -21,8 +21,8 @@ app.get('/', (req, res) => res.send('sdlfkje'));
 
 // use routes
 app.use(cors())
-app.use('/movies', movies)
-app.use('/shows', shows)
+app.use('/api/movies', movies)
+app.use('/api/shows', shows)
 
 app.use(express.static(path.join(__dirname, "client", "build")))
 
