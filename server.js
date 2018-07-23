@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const movies = require('./routes/movies');
 const shows = require('./routes/shows')
 const cors = require('cors');
+const path = require('path');
+const port = process.env.PORT || 4000;
 
 const app = express();
 
@@ -22,6 +24,11 @@ app.use(cors())
 app.use('/movies', movies)
 app.use('/shows', shows)
 
-const port = process.env.PORT || 4000;
+app.use(express.static(path.join(__dirname, "client", "build")))
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+
+
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
