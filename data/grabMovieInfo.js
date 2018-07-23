@@ -75,9 +75,6 @@ const makeAverageRating = (movieInfo) => {
       }
     })
     movieInfo.avgRating = Number((total / movieInfo.Ratings.length).toFixed(1));
-    if (movieInfo.avgRating === isNaN) {
-      movieInfo.avgRating = 'N/A'
-    }
   }
   return movieInfo;
 };

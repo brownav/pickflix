@@ -88,7 +88,8 @@ Media.propTypes = {
   released: PropTypes.string,
   awards: PropTypes.string,
   plot: PropTypes.string,
-  selectedTitleCallback: PropTypes.func
+  selectedTitleCallback: PropTypes.func,
+  ratings: PropTypes.object
 }
 
 export default Media;
