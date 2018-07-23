@@ -9,7 +9,7 @@ const port = process.env.PORT || 4000;
 const app = express();
 
 // db config
-const db = require('./config/keys').mongoURI;
+const db = require('./config/keys').MONGODB_URI;
 
 // connect to mongoDB
 mongoose
