@@ -34,6 +34,10 @@ class Header extends Component {
     this.setState({ selectedGenre: "" })
   }
 
+  clearInfo = () => {
+    this.setState({ contentType: "", selectedGenre: "" })
+  }
+
   render() {
     return (
       <Router>
@@ -47,7 +51,7 @@ class Header extends Component {
             <div>
               <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
               <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
-              <Link id="header-btn" type="button" className="btn btn-outline-primary" to="/">About</Link>
+              <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.clearInfo} to="/">About</Link>
             </div>
 
           </nav>

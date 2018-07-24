@@ -6,8 +6,6 @@
 .sidenav {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
   margin: 0em 0em 2em 0em;
   width: 0;
   position: fixed;

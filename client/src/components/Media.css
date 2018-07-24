@@ -4,7 +4,7 @@ p {
   margin: 0;
 }
 
-.title {
+.media-title {
   padding-top: .5em;
   grid-area: title;
   display: flex;

@@ -1,15 +1,23 @@
-.card-title {
+#card-title {
+  font-size: 1.2em;
   margin: 0;
   display: flex;
   justify-content: center;
-  background-color: rgb(55, 145, 139);
+  background-color: rgb(31, 81, 78);
+  color: white;
 }
 
 .card {
-  margin: 1em;
+  margin: 1.5em;
+  background-color: rgb(31, 81, 78);
+  border: none;
 }
 
 .card-img-top {
   width: 150px;
-  height: 125px;
+  height: 100px;
+}
+
+a#card-title:hover {
+  color: rgb(234, 129, 49);
 }

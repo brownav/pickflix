@@ -141,7 +141,7 @@ class MediaCollection extends Component {
       }
     }
 
-    const winner = this.state.winner ? <div id="winner-container"><h5>{this.state.winner.title}   ({this.state.winner.rating})</h5><img src={this.state.winner.image}className="winner-img" alt="movie poster" height="250" width="200"/></div> : null;
+    const winner = this.state.winner ? <div id="winner-container"><h5>{this.state.winner.title}   ({this.state.winner.rating})</h5><img src={this.state.winner.image}className="winner-img" alt="movie poster" height="275" width="200"/></div> : null;
 
     return (
       <section>

@@ -39,14 +39,13 @@ class Media extends Component {
     return (
       <article className="grid-container">
 
-        <div className="title">
+        <div className="media-title">
           <h3>{this.props.title}</h3>
-
           <div className="btn-group">
             <p id="drp-down" className="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.avgRating}</p>
             <div className="dropdown-menu">
               {this.showRatings()}
-            </div>
+              </div>
           </div>
 
         </div>
