@@ -21,10 +21,10 @@ class MediaCollection extends Component {
   grabURL = () => {
     let urlGenre = this.props.genre.toLowerCase();
     if (this.props.contentType === "Movie") {
-      let temp = "/movies/" + urlGenre
+      let temp = "/api/movies/" + urlGenre
       return temp;
     } else if (this.props.contentType === "Show") {
-      let temp = "/shows/" + urlGenre
+      let temp = "/api/shows/" + urlGenre
       return temp;
     }
   };

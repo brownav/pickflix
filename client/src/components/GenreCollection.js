@@ -13,10 +13,10 @@ class GenreCollection extends Component {
 
   grabURL = () => {
     if (this.props.contentType === "Movie") {
-      let temp = "/movies/genres";
+      let temp = "/api/movies/genres";
       return temp
     } else if (this.props.contentType === "Show") {
-      let temp = "/shows/genres";
+      let temp = "/api/shows/genres";
       return temp
     }
   }
