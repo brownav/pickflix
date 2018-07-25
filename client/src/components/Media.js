@@ -15,13 +15,12 @@ class Media extends Component {
     if (this.props.contentType === 'series') {
       return <p><strong>Episodes:</strong> {this.props.episodeCount}</p>
     }
-  }
+  };
 
   selectedTitleCallback = () => {
     const movie = {title: this.props.title, rating: this.props.avgRating, image: this.props.image}
     this.props.selectedTitleCallback(movie);
-  }
-  // <p><strong>Actors:</strong> {this.props.actors}</p>
+  };
 
   showRatings = () => {
     const ratings = this.state.ratings.map((rating, i) => {
@@ -33,27 +32,31 @@ class Media extends Component {
       )
     })
     return ratings;
-  }
+  };
+
+  showImage = () => {
+    if (this.props.image === "N/A") {
+      return "https://png.clipart.me/previews/90c/movie-poster-background-vector-material-17011.jpg"
+    } else { return this.props.image }
+  };
 
   render() {
     return (
       <article className="grid-container">
-
         <div className="media-title">
           <h3>{this.props.title}</h3>
           <div className="btn-group">
-            <p id="drp-down" className="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.avgRating}</p>
+            <p id="drp-down" className="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.avgRating}</p>
             <div className="dropdown-menu">
               {this.showRatings()}
-              </div>
+            </div>
           </div>
-
         </div>
-
 
         <div className="image">
-          <img src={this.props.image} alt="movie poster" height="220" width="150"/>
+          <img id="image" src={this.showImage()} alt="movie poster" height="220" width="150"/>
         </div>
+
         <div className="col-one">
           <p><strong>Rated:</strong> {this.props.rated}</p>
           <p><strong>Runtime:</strong> {this.props.runtime}</p>
@@ -64,8 +67,9 @@ class Media extends Component {
           {this.showEpisodeCount()}
           <p><strong>Released:</strong> {this.props.released}</p>
           <p><strong>Awards:</strong> {this.props.awards}</p>
-          <button onClick={this.selectedTitleCallback} type="button" className="btn btn-outline-dark btn-sm">Select</button>
+          <button onClick={this.selectedTitleCallback} className="btn btn-outline-dark btn-sm">Select</button>
         </div>
+
         <div className="plot">
           <p><strong>Plot:</strong> {this.props.plot}</p>
         </div>

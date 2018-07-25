@@ -16,5 +16,15 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
 
+#main-container h3 {
+  padding-top: .5em;
+  margin: 0;
+}
+
+@media only screen and (max-width: 800px) {
+  #main-container {
+    margin: 5em 2em 5em 2em;
+  }
 }

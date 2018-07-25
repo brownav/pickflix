@@ -23,7 +23,7 @@ class Header extends Component {
     this.setState({
       selectedGenre: genre,
     })
-  }
+  };
 
   grabGenre = (e) => {
     if (e.target.innerHTML === "Movie") {
@@ -32,11 +32,11 @@ class Header extends Component {
       this.setState({ contentType: e.target.innerHTML})
     }
     this.setState({ selectedGenre: "" })
-  }
+  };
 
   clearInfo = () => {
     this.setState({ contentType: "", selectedGenre: "" })
-  }
+  };
 
   render() {
     return (
@@ -44,14 +44,14 @@ class Header extends Component {
         <main>
           <nav className="navbar-fixed-top fixed-header">
             <div className="category">
-              <p><strong>Content Type:</strong> {this.state.contentType}</p>
+              <p><strong>Type:</strong> {this.state.contentType}</p>
               <p><strong>Genre:</strong> {this.state.selectedGenre}</p>
             </div>
             <h1>Pick-A-Flick</h1>
-            <div>
-              <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
-              <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
-              <Link id="header-btn" type="button" className="btn btn-outline-primary" onClick={this.clearInfo} to="/">About</Link>
+            <div className="links">
+              <Link id="header-btn" className="btn btn-outline-primary" onClick={this.grabGenre} to="/movie/genres">Movie</Link>
+              <Link id="header-btn" className="btn btn-outline-primary" onClick={this.grabGenre} to="/show/genres">Show</Link>
+              <Link id="header-btn" className="btn btn-outline-primary" onClick={this.clearInfo} to="/">About</Link>
             </div>
 
           </nav>
@@ -84,7 +84,7 @@ class Header extends Component {
           </section>
         </main>
       </Router>
-    )
+    );
   }
 }
 

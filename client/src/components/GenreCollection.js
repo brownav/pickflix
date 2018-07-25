@@ -19,7 +19,7 @@ class GenreCollection extends Component {
       let temp = "/api/shows/genres";
       return temp
     }
-  }
+  };
 
   componentDidMount = () => {
     const URL = this.grabURL();
@@ -30,8 +30,8 @@ class GenreCollection extends Component {
     })
     .catch((error) => {
       console.log(error);
-    });
-  }
+    })
+  };
 
   renderGenres = () => {
     let genreList = this.state.genres.map((genre, index) => {
@@ -42,10 +42,10 @@ class GenreCollection extends Component {
           contentType={this.props.contentType}
           selectedGenreCallback={this.props.selectedGenreCallback}
         />
-      );
-    });
+      )
+    })
     return genreList
-  }
+  };
 
   render () {
     return (

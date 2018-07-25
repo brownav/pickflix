@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 import './Genre.css';
 
 class Genre extends Component {
+  selectedGenreCallback = () => {
+    this.props.selectedGenreCallback(this.props.name);
+  };
+
   displayImage = () => {
     switch(this.props.name) {
       case 'Action':
-        return "http://sonarfm.cl/sonarfm/site/artic/20180326/imag/foto_0000000120180326175648.jpg";
+        return "https://nofilmschool.com/sites/default/files/styles/article_wide/public/enter_the_dragon.jpg?itok=Gl98cq3X";
       case 'Adventure':
         return "http://dreamstop.com/wp-content/uploads/2012/10/Adventure-Dreams.jpg";
       case 'Animation':
@@ -31,7 +35,7 @@ class Genre extends Component {
       case 'History':
         return "http://russian7.ru/wp-content/uploads/2017/12/LMki9ecO.jpeg";
       case "Mystery":
-        return "https://media.istockphoto.com/photos/woman-detective-picture-id486861145?k=6&m=486861145&s=612x612&w=0&h=GoWOdixUQXtlxvQweAd7nXvS1W4vNenhyCK_CstDE7k=";
+        return "http://www.sgi-privateinvestigator.co.uk/wp-content/uploads/2013/11/iStock_000004270160XSmall1.jpg";
       case "Game-Show":
         return "http://tvimpulse.com/images/The-100000-Pyramid-660x375.jpg";
       case "Music":
@@ -56,14 +60,12 @@ class Genre extends Component {
         return "http://most-wanted-western-movies.com/wp-content/uploads/2011/12/rsz_western_movie_once_upon_a_time_in_west_leone.jpg";
       case "Talk-Show":
         return "http://www.broadcastdesign.com/wp/wp-content/uploads/2012/08/multimedios_talk_03.jpg";
+      case "News":
+        return "https://www.eschoolnews.com/files/2016/02/news-600x400.jpg";
       default:
-        return "http://via.placeholder.com/150x100";
+        return "https://cdn.shopify.com/s/files/1/1465/2246/products/blank.jpg";
     }
-  }
-
-  selectedGenreCallback = () => {
-    this.props.selectedGenreCallback(this.props.name);
-  }
+  };
 
   createURL = () => {
     const name = this.props.name.toLowerCase();
@@ -74,15 +76,15 @@ class Genre extends Component {
       const media = this.props.contentType.toLowerCase();
       return "/" + media + "/" + name
     }
-  }
+  };
 
   render() {
     return (
       <div className="card">
         <Link id="card-title" to={this.createURL()} onClick={this.selectedGenreCallback}>{this.props.name}</Link>
-        <img className="card-img-top" src={this.displayImage()}/>
+        <img className="card-img-top" src={this.displayImage()} alt="genre icon"/>
       </div>
-    )
+    );
   }
 }
 

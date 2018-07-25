@@ -5,14 +5,13 @@ import './App.css';
 
 class App extends Component {
 
-
   render() {
     return(
-        <main>
-          <Header />
-          <footer></footer>
-        </main>
-    )
+      <main>
+        <Header />
+        <footer></footer>
+      </main>
+    );
   }
 }
 

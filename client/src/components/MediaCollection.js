@@ -22,10 +22,10 @@ class MediaCollection extends Component {
     let urlGenre = this.props.genre.toLowerCase();
     if (this.props.contentType === "Movie") {
       let temp = "/api/movies/" + urlGenre
-      return temp;
+      return temp
     } else if (this.props.contentType === "Show") {
       let temp = "/api/shows/" + urlGenre
-      return temp;
+      return temp
     }
   };
 
@@ -40,7 +40,7 @@ class MediaCollection extends Component {
         console.log(error);
       })
     }
-  }
+  };
 
   setSelectedTitle = (movie) => {
     let values = [];
@@ -52,7 +52,7 @@ class MediaCollection extends Component {
         selectedMovies: [...this.state.selectedMovies, movie]});
     }
     this.openNav();
-  }
+  };
 
   renderMediaList = () => {
     const mediaList = this.state.media.map((media) => {
@@ -107,19 +107,19 @@ class MediaCollection extends Component {
       winner: ""
     })
     this.showWinner(winner);
-  }
+  };
 
   showWinner = (winner) => {
     if (winner) {
       this.setState({ winner: winner });
     }
-  }
+  };
 
   renderButton = () => {
     if (this.state.selectedMovies.length >= 2) {
-      return <button onClick={this.tieBreaker} type="button" id="submit-btn" className="btn btn-outline-dark btn-sm">Submit</button>
+      return <button onClick={this.tieBreaker} id="submit-btn" className="btn btn-outline-dark btn-sm">Submit</button>
     }
-  }
+  };
 
   render() {
     let sideNavStyle = {

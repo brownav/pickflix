@@ -35,7 +35,6 @@ img {
   justify-content: space-between;
   border-bottom: solid white thin;
   background-color: rgb(55, 145, 139)
-
 }
 
 #header-btn {
@@ -56,4 +55,35 @@ img {
    left: 0;
    width: 100%;
    z-index: 99;
+}
+
+@media only screen and (max-width: 745px) {
+  #header-btn {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    font-size: .75em;
+  }
+  h1 {
+    padding: 0;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+  }
+  .nav {
+    display: flex;
+    justify-content: space-between;
+  }
+  .links {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+  }
+  .category {
+    margin: 0em 0em 0em .5em;
+    font-size: .9em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

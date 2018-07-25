@@ -12,7 +12,6 @@
   z-index: 1;
   top: 4.5em;
   right: 0;
-  background-color: white;
   overflow-x: hidden;
   padding-top: 1em;
   flex-wrap: wrap;
@@ -67,4 +66,13 @@ h4, h5, .winner-img {
   justify-content: center;
   align-items: center;
   padding-bottom: 1em;
+}
+
+@media only screen and (max-width: 800px) {
+  .media-collection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4.5em 6em 0em 6em;
+  }
 }
