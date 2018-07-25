@@ -44,8 +44,8 @@ class Header extends Component {
         <main>
           <nav className="navbar-fixed-top fixed-header">
             <div className="category">
-              <p><strong>Type:</strong> {this.state.contentType}</p>
-              <p><strong>Genre:</strong> {this.state.selectedGenre}</p>
+              <span><strong>Type: </strong>{this.state.contentType}</span>
+              <span><strong>Genre: </strong>{this.state.selectedGenre}</span>
             </div>
             <h1>Pick-A-Flick</h1>
             <div className="links">

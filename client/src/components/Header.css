@@ -57,6 +57,12 @@ img {
    z-index: 99;
 }
 
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media only screen and (max-width: 745px) {
   #header-btn {
     margin: 0;

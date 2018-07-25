@@ -40,13 +40,16 @@ class Media extends Component {
     } else { return this.props.image }
   };
 
+
   render() {
+    const avgRating = this.props.avgRating ? this.props.avgRating : "N/A";
+
     return (
       <article className="grid-container">
         <div className="media-title">
           <h3>{this.props.title}</h3>
           <div className="btn-group">
-            <p id="drp-down" className="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.avgRating}</p>
+            <p id="drp-down" className="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{avgRating}</p>
             <div className="dropdown-menu">
               {this.showRatings()}
             </div>
@@ -58,20 +61,20 @@ class Media extends Component {
         </div>
 
         <div className="col-one">
-          <p><strong>Rated:</strong> {this.props.rated}</p>
-          <p><strong>Runtime:</strong> {this.props.runtime}</p>
-          <p><strong>Director:</strong> {this.props.director}</p>
+          <span><strong>Rated:</strong> {this.props.rated}</span>
+          <span><strong>Runtime:</strong> {this.props.runtime}</span>
+          <span><strong>Director:</strong> {this.props.director}</span>
         </div>
 
         <div className="col-two">
           {this.showEpisodeCount()}
-          <p><strong>Released:</strong> {this.props.released}</p>
-          <p><strong>Awards:</strong> {this.props.awards}</p>
+          <span><strong>Released:</strong> {this.props.released}</span>
+          <span><strong>Awards:</strong> {this.props.awards}</span>
           <button onClick={this.selectedTitleCallback} className="btn btn-outline-dark btn-sm">Select</button>
         </div>
 
         <div className="plot">
-          <p><strong>Plot:</strong> {this.props.plot}</p>
+          <span><strong>Plot:</strong> {this.props.plot}</span>
         </div>
       </article>
     );

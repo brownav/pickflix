@@ -80,10 +80,10 @@ class Genre extends Component {
 
   render() {
     return (
-      <div className="card">
-        <Link id="card-title" to={this.createURL()} onClick={this.selectedGenreCallback}>{this.props.name}</Link>
+      <Link className="card" to={this.createURL()} onClick={this.selectedGenreCallback}>
+        <p id="card-title">{this.props.name}</p>
         <img className="card-img-top" src={this.displayImage()} alt="genre icon"/>
-      </div>
+      </Link>
     );
   }
 }

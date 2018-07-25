@@ -7,7 +7,7 @@ class Main extends Component {
       <div id="main-container">
         <section className="intro">
           <h2>About</h2>
-          <h5>Pick-A-Flick helps Netflix users find and select content more objectively and efficiently. Netflix titles are sorted from top to bottom using an aggregated average score.</h5>
+          <h5>This site helps Netflix users find and select content. Netflix titles are sorted from top to bottom using an aggregated average score.</h5>
         </section>
 
         <h3>Layout</h3>

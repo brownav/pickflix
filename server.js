@@ -17,8 +17,6 @@ mongoose
   .then(() => console.log('mongoDB connected'))
   .catch(error => console.log(error));
 
-app.get('/', (req, res) => res.send('sdlfkje'));
-
 // use routes
 app.use(cors())
 app.use('/api/movies', movies)

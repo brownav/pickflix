@@ -18,9 +18,11 @@
   height: 100px;
 }
 
-a#card-title:hover {
+
+.card:hover > #card-title {
   color: rgb(234, 129, 49);
 }
+
 
 @media only screen and (max-width: 745px) {
   .card { margin: 1em; }

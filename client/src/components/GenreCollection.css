@@ -1,7 +1,8 @@
 .list-container {
   display: flex;
-  padding: 4.5em 5em 0em 5em;
+  padding: 4.5em 8em 0em 8em;
   justify-content: center;
+  align-items: center;
 }
 
 a {

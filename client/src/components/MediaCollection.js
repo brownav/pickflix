@@ -82,8 +82,9 @@ class MediaCollection extends Component {
 
   renderSelectedMovies = () => {
     return this.state.selectedMovies.map((movie, i) => {
+      const rating = movie.rating ? movie.rating : "N/A"
       return (
-        <p className="list" key={`selected-title-${i}`}>{i + 1}. <strong>{movie.title}</strong> ({movie.rating})</p>
+        <p className="list" key={`selected-title-${i}`}>{i + 1}. <strong>{movie.title}</strong> ({rating})</p>
       );
     });
   }
@@ -111,6 +112,12 @@ class MediaCollection extends Component {
 
   showWinner = (winner) => {
     if (winner) {
+      if (!winner.rating) {
+        winner.rating = "N/A"
+      }
+      if (winner.image === "N/A") {
+        winner.image = "https://png.clipart.me/previews/90c/movie-poster-background-vector-material-17011.jpg"
+      }
       this.setState({ winner: winner });
     }
   };
@@ -145,7 +152,7 @@ class MediaCollection extends Component {
 
     return (
       <section>
-        <div id="mySidenav" className="sidenav" style={sideNavStyle}>
+        <div className="sidenav" style={sideNavStyle}>
           <span><h4>-Pick For Me-</h4></span>
           <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>x</a>
           {winner}

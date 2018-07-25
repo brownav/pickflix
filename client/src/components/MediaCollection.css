@@ -1,6 +1,8 @@
 .media-collection {
-  padding: 4.5em 10em 0em 10em;
+  padding: 4.5em 9em 0em 9em;
   background-color: rgb(31, 81, 78);
+  display: flex;
+  flex-direction: column;
 }
 
 .sidenav {
@@ -44,6 +46,7 @@ a.closebtn {
 
 .list {
   padding: .5em;
+  margin: 0;
 }
 
 #submit-btn {
@@ -70,9 +73,7 @@ h4, h5, .winner-img {
 
 @media only screen and (max-width: 800px) {
   .media-collection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 4.5em 6em 0em 6em;
+    align-items: center;
   }
 }

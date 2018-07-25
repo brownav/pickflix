@@ -1,4 +1,7 @@
 
 body {
   background-color: rgb(31, 81, 78);
+  max-width: 1080px;
+  margin: 0 auto !important;
+  float: none !important;
 }
