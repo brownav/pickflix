@@ -74,14 +74,16 @@ p#drp-down.btn.btn-outline-primary.btn-sm.dropdown-toggle {
 .dropdown-menu.show {
   transform: translate3d(0px, 10px, 0px);
   padding: .5em;
+  font-size: 1em;
 }
 
 .dropdown-menu {
-  min-width: 11rem;
+  min-width: 10rem;
 }
 
 .dropdown-menu > p {
   margin: 0;
+  font-size: .9em;
 }
 
 .btn:hover {
@@ -96,7 +98,7 @@ p#drp-down.btn.btn-outline-primary.btn-sm.dropdown-toggle {
   border-top-right-radius: 3.2px;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 580px) {
   .grid-container {
     padding: .5em;
     grid-gap: 1px;

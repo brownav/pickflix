@@ -66,6 +66,7 @@ img {
     margin: 0;
     border: 0;
     padding: 0;
+    margin-right: .5em;
     font-size: .75em;
   }
   h1 {
