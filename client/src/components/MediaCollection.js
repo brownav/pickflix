@@ -128,6 +128,22 @@ class MediaCollection extends Component {
     }
   };
 
+  removeMovie = (e) => {
+    if (e.target.innerHTML === "Submit") {
+      this.tieBreaker();
+    } else if (e.target.innerHTML === "x") {
+      this.closeNav();
+    } else {
+      let title = e.target.textContent;
+      console.log(title);
+      const newList = _.filter(this.state.selectedMovies, movie => movie.title !== title);
+
+      this.setState({
+        selectedMovies: newList
+      })
+    }
+  }
+
   render() {
     let sideNavStyle = {
       width: "0"
@@ -148,11 +164,12 @@ class MediaCollection extends Component {
       }
     }
 
-    const winner = this.state.winner ? <div id="winner-container"><h5>{this.state.winner.title}   ({this.state.winner.rating})</h5><img src={this.state.winner.image}className="winner-img" alt="movie poster" height="275" width="200"/></div> : null;
+
+    const winner = this.state.winner ? <div id="winner-container"><h5>{this.state.winner.title} ({this.state.winner.rating})</h5><img src={this.state.winner.image}className="winner-img" alt="movie poster" height="275" width="200"/></div> : null;
 
     return (
       <section>
-        <div className="sidenav" style={sideNavStyle}>
+        <div className="sidenav" style={sideNavStyle} onClick={this.removeMovie}>
           <span><h4>-Pick For Me-</h4></span>
           <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>x</a>
           {winner}

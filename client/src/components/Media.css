@@ -84,14 +84,16 @@ p#drp-down.btn.btn-outline-primary.btn-sm.dropdown-toggle {
   margin: 0;
 }
 
-.btn {
-  width: 5em;
+.btn:hover {
+  border-color: white;
 }
 
-.btn:hover {
-  background-color: rgb(234, 129, 49);
-  border-color: white;
-  color: white;
+#media-btn {
+  height: 2.5em;
+  margin-right: 1em;
+  margin-left: 1em;
+  border-bottom-right-radius: 3.2px;
+  border-top-right-radius: 3.2px;
 }
 
 @media only screen and (max-width: 800px) {

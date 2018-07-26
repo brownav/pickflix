@@ -43,10 +43,8 @@ img {
   border-color: white;
 }
 
-#header-btn:hover {
+.btn:hover {
   background-color: rgb(234, 129, 49);
-  border-color: white;
-  color: white;
 }
 
 .fixed-header {

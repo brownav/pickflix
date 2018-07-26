@@ -13,7 +13,7 @@ class Media extends Component {
 
   showEpisodeCount = () => {
     if (this.props.contentType === 'series') {
-      return <p><strong>Episodes:</strong> {this.props.episodeCount}</p>
+      return <span><strong>Episodes:</strong> {this.props.episodeCount}</span>
     }
   };
 
@@ -49,6 +49,7 @@ class Media extends Component {
         <div className="media-title">
           <h3>{this.props.title}</h3>
           <div className="btn-group">
+            <button id="media-btn" onClick={this.selectedTitleCallback} className="btn btn-outline-dark btn-sm">Select</button>
             <p id="drp-down" className="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{avgRating}</p>
             <div className="dropdown-menu">
               {this.showRatings()}
@@ -70,7 +71,6 @@ class Media extends Component {
           {this.showEpisodeCount()}
           <span><strong>Released:</strong> {this.props.released}</span>
           <span><strong>Awards:</strong> {this.props.awards}</span>
-          <button onClick={this.selectedTitleCallback} className="btn btn-outline-dark btn-sm">Select</button>
         </div>
 
         <div className="plot">
