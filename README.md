@@ -1,4 +1,4 @@
-**Deployment: pickaflick.herokuapp.com**
+[Pick-A-Flick](https://pickaflick.herokuapp.com)
 
 ## Description:
 Responsive web app which organizes Netflix content by genre and aggregate score based on available IMDB, Rotten Tomatoes, and Metacritic scores. 
