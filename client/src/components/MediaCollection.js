@@ -20,13 +20,8 @@ class MediaCollection extends Component {
 
   grabURL = () => {
     let urlGenre = this.props.genre.toLowerCase();
-    if (this.props.contentType === "Movie") {
-      let temp = "/api/movies/" + urlGenre
-      return temp
-    } else if (this.props.contentType === "Show") {
-      let temp = "/api/shows/" + urlGenre
-      return temp
-    }
+    let genre = this.props.contentType.toLowerCase();
+    return "/api/" + genre + "s/" + urlGenre;
   };
 
   componentDidMount = () => {
@@ -135,7 +130,6 @@ class MediaCollection extends Component {
       this.closeNav();
     } else {
       let title = e.target.textContent;
-      console.log(title);
       const newList = _.filter(this.state.selectedMovies, movie => movie.title !== title);
 
       this.setState({
