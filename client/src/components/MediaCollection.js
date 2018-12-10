@@ -20,8 +20,8 @@ class MediaCollection extends Component {
 
   grabURL = () => {
     let urlGenre = this.props.genre.toLowerCase();
-    let genre = this.props.contentType.toLowerCase();
-    return "/api/" + genre + "s/" + urlGenre;
+    let contentType = this.props.contentType.toLowerCase();
+    return "/api/" + contentType + "s/" + urlGenre;
   };
 
   componentDidMount = () => {
