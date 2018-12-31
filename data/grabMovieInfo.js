@@ -4,13 +4,17 @@ const _ = require('lodash');
 const Movie = require('../models/Movie');
 const key = require('../config/keys').OMDB_KEY;
 const mongoose = require('mongoose');
-const db = require('../config/keys').mongoURI;
+const db = require('../config/keys').MONGODB_URI;
 
-mongoose.connect(db)
+mongoose.connect(db, {
+  useNewUrlParser: true
+});
 
-const addOMDBInfo = async (titleList) => {
-  let x = titleList.then((movies) => {
-    movies.forEach((movie) => {
+async function addOMDBInfo(titleList) {
+  let mergedInfo;
+  let movies = await titleList;
+  try {
+    movies.forEach(movie => {
       let title = movie.title;
       let year = movie.released_on;
       if (title.indexOf('Marvel\'s') > -1) {
@@ -18,42 +22,52 @@ const addOMDBInfo = async (titleList) => {
       }
       year = year.slice(0, 4);
       const omdbInfo = getOMDBInfo(title, year);
-      const mergedInfo = mergeOMDBInfo(movie, omdbInfo);
-      mergedInfo.then((info) => {
-        let newMovie = _.pick(info,
-          ['title', 'avgRating', 'episode_source_count', 'Rated',
-          'Released', 'Runtime', 'Genre', 'Director', 'Actors', 'Plot',
-          'Awards', 'Poster', 'Ratings', 'Type'])
-        let temp = new Movie({
-           title: newMovie.title,
-           contentType: newMovie.Type,
-           episodeCount: newMovie.episode_source_count,
-           rated: newMovie.Rated,
-           released: newMovie.Released,
-           genres: newMovie.Genre,
-           plot: newMovie.Plot,
-           awards: newMovie.Awards,
-           image: newMovie.Poster,
-           ratings: newMovie.Ratings,
-           avgRating: newMovie.avgRating,
-           director: newMovie.Director,
-           actors: newMovie.Actors,
-           runtime: newMovie.Runtime,
-        })
-        temp.save()
-        .then((movie) => {
-          console.log('++saved', movie.title);
-        })
-        .catch((error) => {
-          console.log('--shit', error);
-        });
-      });
+      mergedInfo = mergeOMDBInfo(movie, omdbInfo);
     });
-  });
-  return x
+  } catch (error) {
+    console.log(error)
+  }
+  return await mergedInfo;
 }
 
-const makeAverageRating = (movieInfo) => {
+async function saveToDB(titleList) {
+  let movies = await addOMDBInfo(titleList);
+  console.log(await createMovie(movies));
+  }
+
+async function createMovie(movies) {
+  await movies;
+  try {
+    movies.forEach((info) => {
+      let newMovie = _.pick(info,
+        ['title', 'avgRating', 'episode_source_count', 'Rated',
+        'Released', 'Runtime', 'Genre', 'Director', 'Actors', 'Plot',
+        'Awards', 'Poster', 'Ratings', 'Type'])
+      let movie = Movie({
+         title: newMovie.title,
+         contentType: newMovie.Type,
+         episodeCount: newMovie.episode_source_count,
+         rated: newMovie.Rated,
+         released: newMovie.Released,
+         genres: newMovie.Genre,
+         plot: newMovie.Plot,
+         awards: newMovie.Awards,
+         image: newMovie.Poster,
+         ratings: newMovie.Ratings,
+         avgRating: newMovie.avgRating,
+         director: newMovie.Director,
+         actors: newMovie.Actors,
+         runtime: newMovie.Runtime,
+      })
+      movie.save()
+      console.log('++saved', movie.title);
+    });
+  } catch (error) {
+    console.log('--shit', error);
+  }
+}
+
+async function makeAverageRating(movieInfo) {
   if (movieInfo.Ratings) {
     movieInfo.Ratings = _.uniqBy(movieInfo.Ratings, 'Source')
     let total = 0;
@@ -76,45 +90,42 @@ const makeAverageRating = (movieInfo) => {
     })
     movieInfo.avgRating = Number((total / movieInfo.Ratings.length).toFixed(1));
   }
-  return movieInfo;
-};
+  return await movieInfo;
+}
 
-const mergeOMDBInfo = (movie, omdbInfo) => {
-  let mergedInfo = omdbInfo.then((omdbInfo) => {
-    omdbInfo = omdbInfo.data;
-    let mergingInfo = _.merge(movie, omdbInfo);
-    if (mergingInfo.rt_critics_rating && mergingInfo.Ratings) {
-        mergingInfo.Ratings.push({'Source': 'Rotten Tomatoes', 'Value': mergingInfo.rt_critics_rating.toString()});
-    }
-    mergingInfo = _.omit(mergingInfo, ['Title']);
-    mergingInfo = _.omit(mergingInfo, ['released_on']);
-    mergingInfo = _.merge(mergingInfo, {'avgRating': 'N/A'});
-    if (mergingInfo.Actors || mergingInfo.Genre) {
-      mergingInfo.Genre = mergingInfo.Genre.split(',');
-      mergingInfo.Genre.forEach(function(genre, i) {
-        mergingInfo.Genre[i] = mergingInfo.Genre[i].trim()
-      })
-      mergingInfo.Actors = mergingInfo.Actors.split(',');
-    }
-    mergingInfo = makeAverageRating(mergingInfo);
-    return mergingInfo;
-  })
-  return mergedInfo;
-};
+async function mergeOMDBInfo(movie, omdbInfo) {
+  try {
+      let mergingInfo = _.merge(await movie, await omdbInfo);
+      if (mergingInfo.rt_critics_rating && mergingInfo.Ratings) {
+          mergingInfo.Ratings.push({'Source': 'Rotten Tomatoes', 'Value': mergingInfo.rt_critics_rating.toString()});
+      }
+      mergingInfo = _.omit(mergingInfo, ['Title']);
+      mergingInfo = _.omit(mergingInfo, ['released_on']);
+      mergingInfo = _.merge(mergingInfo, {'avgRating': 'N/A'});
+      if (mergingInfo.Actors || mergingInfo.Genre) {
+        mergingInfo.Genre = mergingInfo.Genre.split(',');
+        mergingInfo.Genre.forEach(function(genre, i) {
+          mergingInfo.Genre[i] = mergingInfo.Genre[i].trim();
+        })
+        mergingInfo.Actors = mergingInfo.Actors.split(',');
+      }
+      return makeAverageRating(await mergingInfo);
+  } catch (error) {
+    console.log(error)
+  }
+}
 
-const getOMDBInfo = (title, year) => {
-    title = encodeURI(title);
-    let URL = 'http://www.omdbapi.com/?apikey=' + key + '&t=' + title + '&plot=short&r=json&y=' + year;
-    const omdbInfo = axios.get(URL)
-                  .then((result) => {
-                    return result;
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  });
-    return omdbInfo;
-};
+async function getOMDBInfo(title, year) {
+  title = encodeURI(title);
+  let URL = 'http://www.omdbapi.com/?apikey=' + key + '&t=' + title + '&plot=short&r=json&y=' + year;
+  try {
+    let omdb = await axios.get(URL)
+    return omdb.data;
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const moviePromises = grabTitles();
 const titleList = getMovieList(moviePromises);
-addOMDBInfo(titleList);
+saveToDB(titleList);
