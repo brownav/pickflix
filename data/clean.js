@@ -9,15 +9,37 @@ async function saveMoviesToDB() {
     const rawTitles = await processTitleResults(titles)
     const fullMovies = await attachOMDBInfo(rawTitles);
     const cleanMovies = await cleanFullMovies(fullMovies);
-    console.log(cleanMovies);
-    // return await cleanMovies
-    // const ratedMovies = await addOMDBInfo(rawMovies)
-    // const finalMoviesList = await createMovie(ratedMovies);
+    return cleanMovies
   } catch (error) {
     console.log(error)
   }
 }
 
+function makeAverageRating(movieInfo) {
+  if (movieInfo.Ratings) {
+    movieInfo.Ratings = _.uniqBy(movieInfo.Ratings, 'Source')
+    let total = 0;
+    movieInfo.Ratings.forEach(rating => {
+      if (rating.Source === 'Internet Movie Database') {
+        rating.Value = rating.Value.substr(0, 3);
+        rating.Value = parseFloat(rating.Value);
+        total += rating.Value;
+      }
+      if (rating.Source === 'Rotten Tomatoes' || rating.Source === 'Metacritic') {
+        rating.Value = rating.Value.substr(0, 2);
+        if (rating.Value === '10') {
+          rating.Value = 10;
+          total += 10;
+        } else {
+          rating.Value = parseFloat(rating.Value) / 10;
+          total += rating.Value;
+        }
+      }
+    })
+    movieInfo.avgRating = Number((total / movieInfo.Ratings.length).toFixed(1));
+  }
+  return movieInfo
+}
 
 function cleanFullMovies(movies) {
   let cleanMovies = []
@@ -26,24 +48,20 @@ function cleanFullMovies(movies) {
       movie.Ratings.push({'Source': 'Rotten Tomatoes', 'Value': movie.rt_critics_rating.toString()});
     }
     movie = _.omit(movie, ['Title', 'released_on']);
+
     movie = _.merge(movie, {'avgRating': 'N/A'});
+    movie = makeAverageRating(movie)
+
     if (movie.Actors || movie.Genre) {
       movie.Actors = movie.Actors.split(',');
       movie.Genre = movie.Genre.split(',');
       movie.Genre.forEach((genre, i) => {
-        movie.Genre[i]
-      })
-      // movie.Genre.forEach(function(genre, i) {
-      //   movie.Genre[i] = movie.Gengre[i].trim();
-      // }
+        movie.Genre[i] = movie.Genre[i].trim()})
     }
     cleanMovies.push(movie)
   }
   return cleanMovies;
 }
-
-      // }
-
 
 async function attachOMDBInfo(titles) {
   let results = [];
@@ -86,4 +104,6 @@ function processTitleResults(titles) {
   return rawMovies;
 }
 
-saveMoviesToDB();
+saveMoviesToDB().then((result) => {
+  console.log(result)
+})
