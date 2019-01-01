@@ -6,10 +6,11 @@ const key = require('../config/keys').OMDB_KEY;
 async function saveMoviesToDB() {
   try {
     const titles = await grabTitles();
-    const rawTitles = await processTitleResults(titles);
+    const rawTitles = await processTitleResults(titles)
     const fullMovies = await attachOMDBInfo(rawTitles);
     const cleanMovies = await cleanFullMovies(fullMovies);
-    return cleanMovies
+    console.log(cleanMovies);
+    // return await cleanMovies
     // const ratedMovies = await addOMDBInfo(rawMovies)
     // const finalMoviesList = await createMovie(ratedMovies);
   } catch (error) {
@@ -18,46 +19,44 @@ async function saveMoviesToDB() {
 }
 
 
-async function cleanFullMovies(movies) {
-  for (const movie of movies) {
-    console.log(movie);
-  }
-  console.log('done');
-  // movieList.forEach(async (movie) => {
-  //   console.log(movie);
-  //   if (movie.rt_ratings && movie.Ratings) {
-  //      movie.Ratings.push({'Source': 'Rotten Tomatoes', 'Value': movie.rt_critics_rating.toString()});
-  //   }
-  //
-  //   movie = _.omit(movie, ['Title', 'released_on']);
-  //   movie = _.merge(movie, {'avgRating': 'N/A'});
-  //
-  //   if (movie.Actors || movie.Genre) {
-  //     movie.Actors = movie.Actors.split(',');
-  //     movie.Genre = movie.Genre.split(',');
-
+function cleanFullMovies(movies) {
+  let cleanMovies = []
+  for(movie of movies) {
+    if (movie.rt_ratings && movie.Ratings) {
+      movie.Ratings.push({'Source': 'Rotten Tomatoes', 'Value': movie.rt_critics_rating.toString()});
+    }
+    movie = _.omit(movie, ['Title', 'released_on']);
+    movie = _.merge(movie, {'avgRating': 'N/A'});
+    if (movie.Actors || movie.Genre) {
+      movie.Actors = movie.Actors.split(',');
+      movie.Genre = movie.Genre.split(',');
+      movie.Genre.forEach((genre, i) => {
+        movie.Genre[i]
+      })
       // movie.Genre.forEach(function(genre, i) {
       //   movie.Genre[i] = movie.Gengre[i].trim();
       // }
+    }
+    cleanMovies.push(movie)
   }
+  return cleanMovies;
+}
+
+      // }
 
 
-function attachOMDBInfo(titles) {
+async function attachOMDBInfo(titles) {
   let results = [];
-  titles.forEach((title) => {
-    console.log(title.title);
+  for(title of titles) {
     const URL = 'http://www.omdbapi.com/?apikey=' + key + '&t=' + encodeURI(title.title) + '&plot=short&r=json&y=' + title.released_on;
-    axios.get(URL)
-    .then(result => {
-      console.log(title.title);
-      let mergedMovie = _.merge(result.data, title);
-      results.push(mergedMovie);
-    })
-  })
+    let result = await axios.get(URL)
+    let mergedMovie = _.merge(result.data, title);
+    results.push(mergedMovie);
+  }
   return results;
 }
 
-async function grabTitles() {
+function grabTitles() {
   let skip = 0;
   let i = 20;
   let promises = [];
@@ -66,7 +65,7 @@ async function grabTitles() {
     skip += 5;
     i++;
   }
-  return await axios.all(promises);
+  return axios.all(promises);
 }
 
 function processTitleResults(titles) {
@@ -87,7 +86,4 @@ function processTitleResults(titles) {
   return rawMovies;
 }
 
-saveMoviesToDB().then(titles =>
-  setTimeout(function(){
-    console.log(titles)}, 2000)
-);
+saveMoviesToDB();
