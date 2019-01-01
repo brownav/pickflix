@@ -5,11 +5,11 @@ const key = require('../config/keys').OMDB_KEY;
 
 async function saveMoviesToDB() {
   try {
-
     const titles = await grabTitles();
-    const rawMovies = await processMovieResults(titles);
-    const fullMovies = await attachOMDBInfo(rawMovies);
-    return await fullMovies// getMovieList
+    const rawTitles = await processTitleResults(titles);
+    const fullMovies = await attachOMDBInfo(rawTitles);
+    const cleanMovies = await cleanFullMovies(fullMovies);
+    return cleanMovies
     // const ratedMovies = await addOMDBInfo(rawMovies)
     // const finalMoviesList = await createMovie(ratedMovies);
   } catch (error) {
@@ -17,15 +17,44 @@ async function saveMoviesToDB() {
   }
 }
 
-// addOMDBInfo
-// calls getOMDBInfo(title, year), mergedOMDBInfo(movie, omdbInfo)
-async function attachOMDBInfo(movies) {
-  let results = []
-  movies.forEach((movie) => {
-    const URL = 'http://www.omdbapi.com/?apikey=' + key + '&t=' + encodeURI(movie.title) + '&plot=short&r=json&y=' + movie.released_on;
-    axios.get(URL).then((result) => results.push(result.data));
+
+async function cleanFullMovies(movies) {
+  for (const movie of movies) {
+    console.log(movie);
+  }
+  console.log('done');
+  // movieList.forEach(async (movie) => {
+  //   console.log(movie);
+  //   if (movie.rt_ratings && movie.Ratings) {
+  //      movie.Ratings.push({'Source': 'Rotten Tomatoes', 'Value': movie.rt_critics_rating.toString()});
+  //   }
+  //
+  //   movie = _.omit(movie, ['Title', 'released_on']);
+  //   movie = _.merge(movie, {'avgRating': 'N/A'});
+  //
+  //   if (movie.Actors || movie.Genre) {
+  //     movie.Actors = movie.Actors.split(',');
+  //     movie.Genre = movie.Genre.split(',');
+
+      // movie.Genre.forEach(function(genre, i) {
+      //   movie.Genre[i] = movie.Gengre[i].trim();
+      // }
+  }
+
+
+function attachOMDBInfo(titles) {
+  let results = [];
+  titles.forEach((title) => {
+    console.log(title.title);
+    const URL = 'http://www.omdbapi.com/?apikey=' + key + '&t=' + encodeURI(title.title) + '&plot=short&r=json&y=' + title.released_on;
+    axios.get(URL)
+    .then(result => {
+      console.log(title.title);
+      let mergedMovie = _.merge(result.data, title);
+      results.push(mergedMovie);
+    })
   })
-  return await results;
+  return results;
 }
 
 async function grabTitles() {
@@ -40,7 +69,7 @@ async function grabTitles() {
   return await axios.all(promises);
 }
 
-function processMovieResults(titles) {
+function processTitleResults(titles) {
   let rawMovies = []
   titles.forEach((title) => {
     title.data.forEach((item) => {
@@ -50,7 +79,7 @@ function processMovieResults(titles) {
       movie.released_on = movie.released_on.slice(0,4);
       // accounts for using OMDB to call Marvel titles
       if (movie.title.indexOf('Marvel\'s') > -1) {
-        title = title.slice(9);
+        title = title.slice(8);
       }
       rawMovies.push(movie)
     })
@@ -60,5 +89,5 @@ function processMovieResults(titles) {
 
 saveMoviesToDB().then(titles =>
   setTimeout(function(){
-    console.log(titles)}, 5000)
+    console.log(titles)}, 2000)
 );
